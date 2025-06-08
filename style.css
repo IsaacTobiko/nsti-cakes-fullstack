@@ -4,9 +4,70 @@
   margin: 0;
 }
 header {
-  background-color: rgb(108, 16, 16);
+  background-color: #421625;
+  padding: 27px 0px 27px 0px;
+  min-height: 542px;
+}
+.top {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  position: relative;
+  top: 50px;
 }
 .logo {
-  width: 200px;
+  width: 250px;
   height: 70px;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 170px;
+  list-style: none;
+  position: relative;
+  top: 10px;
+  background-color: #b9861e;
+  padding: 15px 50px;
+}
+nav ul a {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+nav ul a:hover {
+  text-decoration: underline;
+  color: black;
+}
+.bottom {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 150px;
+  gap: 3rem;
+}
+h5 {
+  color: white;
+  font-size: 75px;
+}
+h2 {
+  color: white;
+  font-size: 38px;
+}
+.bite {
+  width: 325px;
+  height: 300px;
+  position: relative;
+  bottom: 60px;
+}
+
+.chevrons {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 150px;
+  gap: 1840px;
+}
+.chevrons i {
+  font-size: 50px;
+  color: #b9861e;
 }

@@ -72,9 +72,64 @@ h2 {
   color: #b9861e;
 }
 
+.cake-part {
+  display: flex;
+  justify-content: space-between;
+  gap: 10%;
+  padding: 50px 0px 50px 0px;
+}
+.cake {
+  width: 280%;
+  position: relative;
+  left: 350px;
+  top: 10px;
+}
+
 .Testimonials {
   background-color: #b9861e;
+  padding: 70px 0px 250px 0px;
+}
+.monials1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
+  color: #eee;
+}
+.monials2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #eee;
+}
+
+.names {
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+  position: relative;
+  top: 150px;
+}
+.Peter {
+  text-align: center;
+  font-size: 35px;
+  width: 300px;
+  background-color: #d9d9d9;
+}
+.Morris {
+  text-align: center;
+  font-size: 35px;
+  width: 300px;
+  background-color: #d9d9d9;
+}
+.Abigael {
+  text-align: center;
+  font-size: 35px;
+  width: 300px;
+  background-color: #d9d9d9;
 }
 footer {
   background-color: black;
+  color: #eee;
 }

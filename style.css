@@ -58,6 +58,7 @@ h2 {
   height: 300px;
   position: relative;
   bottom: 60px;
+  opacity: 0.7;
 }
 
 .chevrons {
@@ -76,20 +77,34 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 44%;
+  gap: 40%;
   padding: 10px 0px 50px 0px;
 }
 .cake {
-  width: 380%;
+  width: 120%;
   position: relative;
   left: 350px;
   top: 10px;
 }
+.text {
+  position: relative;
+  right: 260px;
+  font-size: 22px;
+}
+
 .text h3 {
   font-size: 50px;
 }
 .text h2 {
   color: black;
+  font-weight: lighter;
+}
+
+button {
+  background-color: #421625;
+  color: white;
+  font-size: 15px;
+  padding: 5px 15px;
 }
 
 .Testimonials {

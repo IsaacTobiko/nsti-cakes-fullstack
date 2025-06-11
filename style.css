@@ -165,10 +165,12 @@ button {
 footer {
   background-color: black;
   color: #eee;
+  padding-top: 10px 0;
 }
 .all {
   display: flex;
   justify-content: center;
+  gap: 268px;
 }
 .contact form,
 .contact label,
@@ -202,5 +204,14 @@ footer {
   color: white;
   font-size: 25px;
 }
-.number {
+.number a,
+.number img,
+.number p {
+  margin-bottom: 1rem;
+}
+.copy {
+  text-align: center;
+  background-color: #4d4949;
+  padding: 10px 0;
+  font-size: 15px;
 }

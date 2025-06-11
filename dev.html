@@ -81,71 +81,74 @@
         </div>
         <section class="names">
           <div class="Peter">
-            <h1>Feels homemade and so special!</h1>
+            <h1 class="names-text">Feels homemade and so special!</h1>
             <p>Peter Mbugua</p>
           </div>
           <div class="Morris">
-            <h1>Delicious cakes and great service.</h1>
+            <h1 class="names-text">Delicious cakes and great service.</h1>
             <p>Morris Lemayian</p>
           </div>
           <div class="Abigael">
-            <h1>Best moist cakes ever!</h1>
+            <h1 class="names-text">Best moist cakes ever!</h1>
             <p>Abigael Rayon</p>
           </div>
         </section>
       </section>
     </main>
     <footer>
-      <div>
-        <p>Contact Us</p>
-        <p>Send us a message</p>
-        <form action="submit" method="post">
-          <label for="name" class="sr-only"></label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Full name"
-            required
-          />
-          <label for="email" class="sr-only"></label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Your Email"
-            required
-          />
-          <label for="message" class="sr-only"></label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Your Message"
-            required
-          ></textarea>
+      <section class="all">
+        <div class="contact">
+          <p>Contact Us</p>
+          <p>Send us a message</p>
+          <form action="submit" method="post">
+            <label for="name" class="sr-only"></label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Full name"
+              required
+            />
+            <label for="email" class="sr-only"></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
+            <label for="message" class="sr-only"></label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Your Message"
+              required
+            ></textarea>
 
-          <input type="submit" />
-        </form>
-      </div>
-      <div>
-        <h1>Sitemap</h1>
-        <p>All our pages</p>
-        <ol>
-          <li><a href="../dev.html">Home</a></li>
-          <li><a href="pages/about.html">About Us</a></li>
-          <li><a href="pages/purchase.html">Purchase</a></li>
-          <li><a href="pages/contact.html">Contact Us</a></li>
-        </ol>
-      </div>
-      <div>
-        <a href="https://nsti.ac.ke/" target="_blank">
-          <img src="logo.png" alt="nsti_logo" />
-        </a>
-        <p><i class="fas fa-phone"></i> +254 723766635</p>
-        <p>
-          <i class="fas fa-envelope"></i>nairobisouthtraininginstitute@gmail.com
-        </p>
-      </div>
+            <input type="submit" class="btn" />
+          </form>
+        </div>
+        <div class="map">
+          <h1>Sitemap</h1>
+          <p>All our pages</p>
+          <ol>
+            <li><a href="../dev.html">Home</a></li>
+            <li><a href="pages/about.html">About Us</a></li>
+            <li><a href="pages/purchase.html">Purchase</a></li>
+            <li><a href="pages/contact.html">Contact Us</a></li>
+          </ol>
+        </div>
+        <div class="number">
+          <a href="https://nsti.ac.ke/" target="_blank">
+            <img src="logo.png" alt="nsti_logo" />
+          </a>
+          <p><i class="fas fa-phone"></i> +254 723766635</p>
+          <p>
+            <i class="fas fa-envelope"></i
+            >nairobisouthtraininginstitute@gmail.com
+          </p>
+        </div>
+      </section>
       <div>
         <p>
           &copy;Copyright 2025 All Rights Reserved Nairobi South Training
@@ -153,6 +156,5 @@
         </p>
       </div>
     </footer>
-    <script src="main.js"></script>
   </body>
 </html>

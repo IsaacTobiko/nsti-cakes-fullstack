@@ -1,3 +1,2 @@
-let age = 30;
-
-console.log(age);
+const s = "Isaac Tobiko";
+console.log(s.length);

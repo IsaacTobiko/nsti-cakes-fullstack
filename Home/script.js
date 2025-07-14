@@ -1,1 +1,3 @@
-let name = 20;
+const s = "Hello world!";
+
+console.log(s.toUpperCase());

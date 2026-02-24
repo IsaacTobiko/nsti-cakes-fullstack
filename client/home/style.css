@@ -1,0 +1,234 @@
+*,
+html,
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+header {
+  background-color: #421625;
+  padding: 27px 0px 27px 0px;
+  min-height: 542px;
+}
+.top {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  position: relative;
+  top: 50px;
+}
+.logo {
+  width: 250px;
+  height: 70px;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  list-style: none;
+  position: relative;
+  top: 10px;
+  background-color: #b9861e;
+  padding: 15px 50px;
+}
+nav ul a {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+nav ul a:hover {
+  text-decoration: underline;
+  color: black;
+}
+.bottom {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 150px;
+  gap: 3rem;
+}
+h5 {
+  color: white;
+  font-size: 75px;
+}
+h2 {
+  color: white;
+  font-size: 38px;
+}
+.bite {
+  width: 325px;
+  height: 300px;
+  position: relative;
+  bottom: 60px;
+  opacity: 0.7;
+}
+
+.chevrons {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 150px;
+  gap: 1840px;
+}
+.chevrons i {
+  font-size: 50px;
+  color: #b9861e;
+}
+
+.cake-part {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 10px;
+  gap: 20rem;
+}
+.cake {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+}
+.text {
+  font-size: 18px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.text h3 {
+  font-size: 36px;
+}
+.text h2 {
+  color: black;
+  font-weight: lighter;
+}
+
+button {
+  background-color: #421625;
+  color: white;
+  font-size: 15px;
+  padding: 5px 15px;
+}
+.Read {
+  text-decoration: none;
+  color: white;
+}
+
+.Testimonials {
+  background-color: #b9861e;
+  padding: 30px 0px 150px 0px;
+}
+.monials1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: #eee;
+}
+.monials2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #eee;
+}
+
+.names {
+  display: flex;
+  justify-content: center;
+  gap: 215px;
+  position: relative;
+  top: 100px;
+}
+.Peter {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bolder;
+  width: 300px;
+  background-color: rgb(223, 218, 209);
+  padding: 10px 10px;
+}
+.Morris {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bolder;
+  width: 300px;
+  background-color: rgb(223, 218, 209);
+  padding: 10px 10px;
+}
+.names-text {
+  font-weight: lighter;
+  position: relative;
+  padding: 20px 0;
+}
+.Abigael {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bolder;
+  width: 300px;
+  background-color: rgb(223, 218, 209);
+  padding: 10px 10px;
+}
+footer {
+  background-color: black;
+  color: #eee;
+  padding: 0px 0;
+}
+.all {
+  display: flex;
+  justify-content: center;
+  gap: 300px;
+  padding: 80px 0;
+  position: relative;
+  bottom: 65px;
+}
+.contact form,
+.contact label,
+.contact input,
+.contact textarea {
+  display: block;
+  margin-bottom: 0.5rem;
+  height: 40px;
+}
+.contact textarea {
+  height: 100px;
+  width: 200%;
+}
+.btn {
+  color: white;
+  background-color: #353232;
+  width: 55%;
+  padding: 5px 0;
+  border: 2px solid #353232;
+}
+.all .contact p {
+  font-size: 25px;
+}
+.map span,
+.map p {
+  font-size: 25px;
+}
+
+.items li a {
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+}
+.number a,
+.number img,
+.number p {
+  margin-bottom: 1rem;
+  font-size: 19px;
+}
+.copy {
+  text-align: center;
+  background-color: #353232;
+  border: 2px solid #353232;
+  padding: 5px 0;
+  font-size: 15px;
+  margin-bottom: 0;
+}

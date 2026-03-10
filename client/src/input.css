@@ -1,3 +1,82 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* v4 way */
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply font-body;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .animate-pop {
+    animation: pop 0.5s ease forwards;
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .delay-1 {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  .delay-2 {
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  .delay-3 {
+    animation-delay: 0.7s;
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@theme {
+  /* Brand Colors */
+  --color-maroon-dark: #2d0d18;
+  --color-maroon: #421625;
+  --color-maroon-light: #572f3d;
+  --color-gold: #b9861e;
+  --color-gold-light: #d4a032;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #d1d5db;
+  --color-text-muted: #9ca3af;
+
+  /* Status Colors */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Fonts */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "DM Sans", sans-serif;
+}

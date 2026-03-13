@@ -27,43 +27,134 @@
     />
   </head>
   <body>
-    <header>
-      <section>
-        <div>
+    <nav class="bg-maroon-dark text-white" aria-label="Main navigation">
+      <div class="wrapper">
+        <div class="flex justify-between items-center py-4">
           <a
             href="https://nsti.ac.ke/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="logo.png" alt="nsti_logo" />
+            <img
+              src="logo.png"
+              alt="NSTI logo"
+              class="h-8 md:h-10 lg:h-12 w-auto"
+            />
           </a>
-        </div>
-        <nav aria-label="Main navigation">
-          <ul>
-            <li><a href="../home/index.html">Home</a></li>
-            <li><a href="../cakes/index.html">Cakes</a></li>
-            <li><a href="../cart/index.html">Cart</a></li>
-            <li><a href="../login/index.html">Login</a></li>
+
+          <ul
+            class="border border-white/25 rounded-lg overflow-hidden hidden md:flex"
+          >
+            <li>
+              <a href="../home/index.html" class="nav-link">Home</a>
+            </li>
+            <li>
+              <a href="../cakes/index.html" class="nav-link">Cakes</a>
+            </li>
+            <li>
+              <a href="../cart/index.html" class="nav-link">Cart</a>
+            </li>
+            <li>
+              <a href="../login/index.html" class="nav-link">Login</a>
+            </li>
           </ul>
-        </nav>
-      </section>
-      <section>
-        <button aria-label="Previous">
-          <i class="fas fa-chevron-left" aria-hidden="true"></i>
-        </button>
-        <button aria-label="Next">
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </button>
-      </section>
-      <section>
-        <div>
-          <p>Bite Into Happiness</p>
-          <h1>Delicious cakes crafted with love for every occasion</h1>
+          <!-- hamburger on mobile -->
+          <button
+            id="menu-btn"
+            class="md:hidden text-white hover:text-gold cursor-pointer p-2 transition-colors duration-200"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <i class="fas fa-bars text-xl" aria-hidden="true"></i>
+          </button>
         </div>
-        <div>
-          <img src="Bite.jpeg" alt="A_girl_biting_a_cake" />
+
+        <div id="mobile-menu" class="hidden md:hidden pb-4">
+          <ul class="flex flex-col">
+            <li>
+              <a
+                href="../home/index.html"
+                class="block py-3 px-4 hover:bg-maroon-light"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="../cakes/index.html"
+                class="block py-3 px-4 hover:bg-maroon-light"
+                >Cakes</a
+              >
+            </li>
+            <li>
+              <a
+                href="../cart/index.html"
+                class="block py-3 px-4 hover:bg-maroon-light"
+                >Cart</a
+              >
+            </li>
+            <li>
+              <a
+                href="../login/index.html"
+                class="block py-3 px-4 hover:bg-maroon-light"
+                >Login</a
+              >
+            </li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </nav>
+    <header class="bg-maroon text-white relative overflow-hidden">
+      <button
+        aria-label="Previous"
+        class="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white cursor-pointer p-2 transition-colors duration-200"
+      >
+        <i class="fas fa-chevron-left text-5xl" aria-hidden="true"></i>
+      </button>
+
+      <!-- right chevron — pinned to right edge, vertically centered -->
+      <button
+        aria-label="Next"
+        class="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white cursor-pointer p-2 transition-colors duration-200"
+      >
+        <i class="fas fa-chevron-right text-5xl" aria-hidden="true"></i>
+      </button>
+      <div class="wrapper">
+        <div
+          class="py-20 md:py-32 flex flex-col-reverse md:flex-row items-center gap-10"
+        >
+          <div>
+            <h1
+              class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
+            >
+              Bite Into Happiness
+            </h1>
+            <p class="text-xl md:text-2xl lg:text-3xl leading-tight mb-6">
+              Delicious cakes crafted with love for every occasion
+            </p>
+          </div>
+          <div class="flex-1 self-end">
+            <img
+              src="Bite.jpeg"
+              alt="A girl biting a cake"
+              class="w-full object-cover object-top rounded-t-lg rounded-b-none"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center items-center gap-3 pb-8">
+        <button
+          aria-label="Slide 1"
+          class="w-3 h-3 rounded-full bg-white/40 cursor-pointer transition-colors duration-200"
+        ></button>
+        <button
+          aria-label="Slide 2"
+          class="w-3 h-3 rounded-full bg-gold cursor-pointer transition-colors duration-200"
+        ></button>
+        <button
+          aria-label="Slide 3"
+          class="w-3 h-3 rounded-full bg-gold cursor-pointer transition-colors duration-200"
+        ></button>
+      </div>
     </header>
     <main>
       <section>
@@ -172,6 +263,6 @@
         </p>
       </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="home.js" defer></script>
   </body>
 </html>

@@ -235,12 +235,24 @@
         </div>
       </section>
     </main>
-    <footer>
-      <section>
-        <div>
-          <p>Contact Us</p>
-          <p>Send us a message</p>
-          <form action="/contact" method="post">
+    <footer
+      class="bg-black text-white pt-10 pb-6 md:pt-14 md:pb-8 lg:pt-20 lg:pb-12 xl:pt-24"
+    >
+      <section
+        class="wrapper flex flex-col md:flex-row md:justify-between md:items-start gap-10 md:gap-8 lg:gap-12"
+      >
+        <div class="flex-1">
+          <p
+            class="text-sm md:text-base lg:text-lg xl:text-xl font-semibold tracking-wider mb-1"
+          >
+            Contact Us
+          </p>
+          <p class="text-xs md:text-sm lg:text-sm mb-6">Send us a message</p>
+          <form
+            action="/contact"
+            method="post"
+            class="flex flex-col space-y-2 md:space-y-3 w-full"
+          >
             <label for="name" class="sr-only">Full name</label>
             <input
               type="text"
@@ -248,6 +260,7 @@
               name="name"
               placeholder="Full name"
               required
+              class="bg-white text-black px-3 py-2 md:py-3 text-sm placeholder-black"
             />
             <label for="email" class="sr-only">Your Email</label>
             <input
@@ -256,6 +269,7 @@
               name="email"
               placeholder="Your Email"
               required
+              class="bg-white text-black px-3 py-2 md:py-3 text-sm placeholder-black"
             />
             <label for="message" class="sr-only">Your Message</label>
             <textarea
@@ -263,22 +277,55 @@
               name="message"
               placeholder="Your Message"
               required
+              class="bg-white text-black px-3 py-2 md:py-3 text-sm placeholder-black h-20 resize-none"
             ></textarea>
 
-            <input type="submit" />
+            <input
+              type="submit"
+              value="Send Message"
+              class="bg-[#353232] hover:bg-[#4a4646] text-white text-xs py-1.5 px-4 rounded-md cursor-pointer font-medium w-fit"
+            />
           </form>
         </div>
-        <div>
-          <h3>Sitemap</h3>
+        <div class="flex-1">
+          <h3
+            class="text-sm md:text-base lg:text-lg xl:text-xl font-semibold tracking-wider"
+          >
+            Sitemap
+          </h3>
           <p>All our pages</p>
-          <ul>
-            <li><a href="../home/index.html">Home</a></li>
-            <li><a href="../cakes/index.html">Cakes</a></li>
-            <li><a href="../about/index.html">About Us</a></li>
-            <li><a href="../contact/index.html">Contact Us</a></li>
+          <ul class="mt-4 space-y-2">
+            <li>
+              <a
+                href="../home/index.html"
+                class="text-gray-400 hover:text-white transition duration-200"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="../cakes/index.html"
+                class="text-gray-400 hover:text-white transition duration-200"
+                >Cakes</a
+              >
+            </li>
+            <li>
+              <a
+                href="../about/index.html"
+                class="text-gray-400 hover:text-white transition duration-200"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="../contact/index.html"
+                class="text-gray-400 hover:text-white transition duration-200"
+                >Contact Us</a
+              >
+            </li>
           </ul>
         </div>
-        <div>
+        <div class="flex-1">
           <a
             href="https://nsti.ac.ke/"
             target="_blank"
@@ -286,17 +333,26 @@
           >
             <img src="logo.png" alt="nsti_logo" />
           </a>
-          <p><i class="fas fa-phone"></i> +254 722 872644</p>
-          <p>
-            <i class="fas fa-envelope"></i
-            >nairobisouthtraininginstitute@gmail.com
-          </p>
+
+          <a
+            href="tel:+254722872644"
+            class="flex items-center mt-4 text-gray-400 hover:text-white transition duration-200"
+          >
+            <i class="fas fa-phone mr-2"></i> +254 722 872644
+          </a>
+          <a
+            href="mailto:nairobisouthtraininginstitute@gmail.com"
+            class="flex items-center mt-2 text-gray-400 hover:text-white transition duration-200"
+          >
+            <i class="fas fa-envelope mr-2"></i>
+            nairobisouthtraininginstitute@gmail.com
+          </a>
         </div>
       </section>
-      <div>
-        <p>
-          &copy;Copyright 2026 All Rights Reserved Nairobi South Training
-          Institute
+      <div class="border-t border-gray-800 mt-5 md:mt-9 lg:mt-12">
+        <p class="text-xs text-gray-500 text-center">
+          &copy;<span id="year"></span> All Rights Reserved Nairobi South
+          Training Institute
         </p>
       </div>
     </footer>

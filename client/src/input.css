@@ -1,5 +1,8 @@
+/*ALL @imports must be first — nothing can come before them */
+@import url("https://fonts.googleapis.com/css2?family=Tienne:wght@400;700;900&display=swap");
 @import "tailwindcss";
 
+/* ONE single @theme block with everything inside */
 @theme {
   --color-maroon-dark: #2d0d18;
   --color-maroon: #421625;
@@ -9,6 +12,7 @@
 
   --font-heading: "Playfair Display", serif;
   --font-body: "DM Sans", sans-serif;
+  --font-tienne: "Tienne", serif;
 }
 
 @layer base {
@@ -50,9 +54,9 @@
     @apply block 
     md:px-5 md:py-2.5 md:text-sm
     lg:px-9 lg:py-2.5 lg:text-base
-   bg-gold text-white
-   hover:bg-white hover:text-maroon
-   transition-colors duration-200;
+    bg-gold text-white
+    hover:bg-white hover:text-maroon
+    transition-colors duration-200;
   }
 }
 

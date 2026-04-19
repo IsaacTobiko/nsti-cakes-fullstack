@@ -26,27 +26,69 @@
     />
   </head>
   <body>
-    <nav aria-label="Main navigation">
-      <a href="https://nsti.ac.ke" target="_blank" rel="noopener noreferrer">
-        <img src="logo.png" alt="nsti_logo" />
-      </a>
+    <nav
+      class="font-tienne bg-maroon-dark text-white"
+      aria-label="Main navigation"
+    >
+      <div class="wrapper flex items-center justify-between py-4">
+        <a href="https://nsti.ac.ke" target="_blank" rel="noopener noreferrer">
+          <img
+            src="logo.png"
+            alt="NSTI logo"
+            class="h-8 md:h-10 lg:h-12 w-auto"
+          />
+        </a>
 
-      <ul>
+        <!--Hamburger button - shows on mobile only-->
+        <button
+          id="menu-btn"
+          class="md:hidden text-white focus: outline-none hover:text-gold"
+          aria-label="Toggle menu"
+        >
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+
+        <ul
+          class="hidden md:flex items-center gap-4 md:gap-8 lg:gap-32 list-none p-0 m-0 text-sm md:text-base lg:text-lg"
+        >
+          <li><a href="../home/index.html">Home</a></li>
+          <li><a href="../cakes/index.html">Cakes</a></li>
+          <li><a href="../cart/index.html">Cart</a></li>
+          <li><a href="../login/index.html">Login</a></li>
+        </ul>
+      </div>
+
+      <!--Mobile dropdown-->
+      <ul
+        id="mobile-menu"
+        class="hidden flex-col gap-4 list-none p-4 m-0 md:hidden text-sm"
+      >
         <li><a href="../home/index.html">Home</a></li>
         <li><a href="../cakes/index.html">Cakes</a></li>
         <li><a href="../cart/index.html">Cart</a></li>
         <li><a href="../login/index.html">Login</a></li>
       </ul>
     </nav>
-    <header aria-label="page header">
-      <nav aria-label="Breadcrumb">
-        <a href="../home/index.html">Home</a>
-        <a href="../cart/index.html">Cart</a>
-        <a href="../checkout/index.html">Checkout</a>
-      </nav>
+    <header
+      class="font-tienne bg-maroon-dark text-white py-4"
+      aria-label="page header"
+    >
+      <div class="wrapper">
+        <nav class="text-sm md:text-base lg:text-lg" aria-label="Breadcrumb">
+          <a href="../home/index.html" class="text-gold">Home </a>
+          <span class="mx-1"> > </span>
+          <a href="../cart/index.html" class="text-gold">Cart </a>
+          <span class="mx-1"> > </span>
+          <a href="../checkout/index.html">Checkout</a>
+        </nav>
 
-      <p>Secure <a href="../checkout/index.html">Checkout</a></p>
-      <p>Complete your order below, fresh cakes on their way!</p>
+        <p class="mt-1">
+          Secure <a href="../checkout/index.html" class="text-gold">Checkout</a>
+        </p>
+        <p class="mt-1 mb-4">
+          Complete your order below, fresh cakes on their way!
+        </p>
+      </div>
     </header>
     <main>
       <div>
@@ -347,7 +389,6 @@
       <section id="birthdays" data-category="birthdays">
         <div>
           <h2>Birthday Cakes</h2>
-          <div>Birthday Cakes</div>
           <div>
             <img src="B1.jpeg" alt="Gold Stars Birthday Cake" />
             <h3>Gold Stars Birthday Cake</h3>

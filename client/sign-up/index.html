@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Isaac_Tobiko" />
+    <meta name="description" content="Create your NSTI Bakery account." />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>NSTI Bakery | Sign Up</title>
+    <link rel="stylesheet" href="../src/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div class="bg-gray-custom">
+        <h1>Sign Up</h1>
+        <form action="/sign-up" method="post">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email@example.com"
+            required
+          />
+          <label for="password">Create password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Create password"
+            required
+          />
+          <label for="confirm-password">Confirm password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm_password"
+            placeholder="Confirm password"
+            required
+          />
+          <button type="submit" class="bg-maroon">Sign Up</button>
+        </form>
+        <p>OR CONTINUE WITH</p>
+        <button type="button">
+          <i class="fab fa-google"></i>
+          Continue with Google
+        </button>
+        <p>Already have an account? <a href="../login/index.html">Login</a></p>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

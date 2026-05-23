@@ -15,10 +15,14 @@
   </head>
   <body class="bg-gray-300 min-h-screen">
     <header></header>
-    <main class="flex items-center justify-center min-h-screen">
-      <div class="bg-white w-full max-w-lg px-8 py-12 flex flex-col gap-5">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">Sign Up</h1>
-        <form action="/sign-up" method="post">
+    <main class="flex items-center justify-center min-h-screen px-4">
+      <div
+        class="bg-white w-full max-w-sm md:max-w-md lg:max-w-lg px-6 md:px-8 lg:px-10 py-10 md:py-12 flex flex-col gap-5"
+      >
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Sign Up
+        </h1>
+        <form action="/sign-up" method="post" class="flex flex-col gap-5">
           <div class="flex flex-col gap-1">
             <label for="email" class="text-sm font-semibold text-gray-900"
               >Email Address</label
@@ -37,38 +41,73 @@
               />
             </div>
           </div>
-          <div>
-            <label for="password">Create password</label>
-            <div>
+          <div class="flex flex-col gap-1">
+            <label for="password" class="text-sm font-semibold text-gray-900"
+              >Create password</label
+            >
+            <div
+              class="flex items-center gap-3 bg-white border border-gray-300 px-3 py-3 rounded-sm"
+            >
+              <i class="fas fa-lock text-gray-900"></i>
               <input
                 type="password"
                 id="password"
                 name="password"
                 placeholder="Create password"
                 required
+                class="flex-1 text-sm outline-none bg-white"
               />
             </div>
           </div>
-          <div>
-            <label for="confirm-password">Confirm password</label>
-            <div>
+          <div class="flex flex-col gap-1">
+            <label
+              for="confirm-password"
+              class="text-sm font-semibold text-gray-900"
+              >Confirm password</label
+            >
+            <div
+              class="flex items-center gap-3 bg-white border border-gray-300 px-3 py-3 rounded-sm"
+            >
+              <i class="fas fa-lock text-gray-900"></i>
               <input
                 type="password"
                 id="confirm-password"
                 name="confirm_password"
                 placeholder="Confirm password"
                 required
+                class="flex-1 text-sm outline-none bg-white"
               />
             </div>
           </div>
-          <button type="submit" class="bg-maroon">Sign Up</button>
+          <button
+            type="submit"
+            class="w-full bg-maroon hover:bg-maroon-dark text-white text-sm font-semibold py-3 rounded-sm transition-colors duration-200 cursor-pointer"
+          >
+            Sign Up
+          </button>
         </form>
-        <p>OR CONTINUE WITH</p>
-        <button type="button">
+        <div class="flex items-center gap-4 my-2">
+          <hr class="flex-1 border-gray-300" />
+          <p
+            class="text-xs text-gray-500 tracking-widest font-semibold uppercase"
+          >
+            OR CONTINUE WITH
+          </p>
+          <hr class="flex-1 border-gray-300" />
+        </div>
+        <button
+          type="button"
+          class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-900 text-sm font-semibold py-3 rounded-sm transition-colors duration-200 cursor-pointer"
+        >
           <i class="fab fa-google"></i>
           Continue with Google
         </button>
-        <p>Already have an account? <a href="../login/index.html">Login</a></p>
+        <p class="text-sm text-gray-500 text-center mt-2">
+          Already have an account?
+          <a href="../login/index.html" class="text-gold font-semibold"
+            >Login</a
+          >
+        </p>
       </div>
     </main>
     <footer></footer>

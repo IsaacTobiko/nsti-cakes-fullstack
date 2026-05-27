@@ -22,7 +22,12 @@
         <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           Sign Up
         </h1>
-        <form action="/sign-up" method="post" class="flex flex-col gap-5">
+        <form
+          id="sign-up-form"
+          action="/sign-up"
+          method="post"
+          class="flex flex-col gap-5"
+        >
           <div class="flex flex-col gap-1">
             <label
               for="email"
@@ -42,6 +47,9 @@
                 class="flex-1 text-sm md:text-base outline-none bg-white"
               />
             </div>
+            <p id="email-error" class="text-sm text-red-500 hidden">
+              Please enter a valid email address
+            </p>
           </div>
           <div class="flex flex-col gap-1">
             <label
@@ -66,6 +74,7 @@
                 id="toggle-password"
               ></i>
             </div>
+            <p id="password-strength" class="text-sm hidden"></p>
           </div>
           <div class="flex flex-col gap-1">
             <label
@@ -85,11 +94,18 @@
                 required
                 class="flex-1 text-sm md:text-base outline-none bg-white"
               />
+
               <i
                 class="fas fa-eye-slash text-gray-500 cursor-pointer"
                 id="toggle-confirm-password"
               ></i>
             </div>
+            <p
+              id="password-error"
+              class="text-red-500 text-sm md:text-base hidden"
+            >
+              Passwords do not match!
+            </p>
           </div>
           <button
             type="submit"

@@ -1,6 +1,9 @@
-const btn = document.querySelector(".btn");
-btn.addEventListener("mouseout", (e) => {
-  e.preventDefault();
-  btn.style.background = "red";
-  document.querySelector("body").classList.add("copy");
+// Current Year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Hamburger Menu
+const menuBtn = document.getElementById("menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
+menuBtn.addEventListener("click", function () {
+  mobileMenu.classList.toggle("hidden");
 });

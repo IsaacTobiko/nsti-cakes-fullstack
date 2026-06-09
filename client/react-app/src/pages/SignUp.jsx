@@ -37,7 +37,7 @@ function SignUp() {
   const strength = getPasswordStrength();
 
   return (
-    <main className="flex items-center justify-center min-h-screen px-4">
+    <main className="bg-gray-300 flex items-center justify-center min-h-screen px-4">
       <div className="bg-white w-full max-w-sm md:max-w-md lg:max-w-lg px-6 md:px-8 lg:px-10 py-10 md:py-12 flex flex-col gap-5">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           Sign Up

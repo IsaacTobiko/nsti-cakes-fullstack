@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inria+Serif:wght@300;400;700&display=swap");
+
 @import "tailwindcss";
 
 @theme {
@@ -6,4 +8,47 @@
   --color-maroon-light: #a01020;
   --color-gold: #c9a84c;
   --color-gold-light: #e0c068;
+}
+
+.font-instrument {
+  font-family: "Instrument Serif", serif;
+}
+
+.font-inria {
+  font-family: "Inria Serif", serif;
+}
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-pop-up {
+  animation: popUp 0.6s ease-out forwards;
+}
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+.animate-slide-left-delay {
+  opacity: 0;
+  animation: slideInLeft 1s ease-out 0.4s forwards;
 }

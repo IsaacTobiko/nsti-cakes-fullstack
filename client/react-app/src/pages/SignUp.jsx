@@ -65,7 +65,6 @@ function SignUp() {
             )}
           </div>
 
-          {/* Password */}
           <div className="flex flex-col gap-1">
             <label className="text-sm md:text-base font-semibold text-gray-900">
               Create password

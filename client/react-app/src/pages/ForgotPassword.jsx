@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function ForgotPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
   const handleSend = () => {
@@ -11,7 +13,7 @@ function ForgotPassword() {
     setEmail("");
   };
   const handleBack = () => {
-    console.log("navigate > /sign-in");
+    navigate("/login");
   };
 
   return (
@@ -60,11 +62,11 @@ function ForgotPassword() {
           onClick={handleBack}
           className="flex items-center justify-center gap-1
             text-xs sm:text-sm text-gray-500
-            hover:text-gray-800 transition-colors
+            hover:text-gray-800 transition-colors cursor-pointer
             w-full"
         >
           <i className="fa-solid fa-arrow-left" />
-          Back to Sign In
+          Back to login
         </button>
       </div>
     </main>

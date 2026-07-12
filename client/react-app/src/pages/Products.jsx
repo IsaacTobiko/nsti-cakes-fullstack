@@ -20,7 +20,7 @@ function Products() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base  rounded-full border ${
+            className={`px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base cursor-pointer rounded-full border ${
               activeCategory === cat
                 ? "bg-maroon text-white"
                 : "bg-white text-maroon-dark"
@@ -30,6 +30,27 @@ function Products() {
           </button>
         ))}
       </div>
+      {categoriesToShow.map((cat) => {
+        const productsInCategory = productsData.filter(
+          (p) => p.category === cat,
+        );
+        return (
+          <div key={cat} className="mb-10">
+            <div className="inline-block bg-maroon-dark text-white px-3 py-1 text-sm sm:px-4 sm:py-1 sm:text-base rounded mb-4">
+              {cat} cakes
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {productsInCategory.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAdd={handleAdd}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -13,7 +13,7 @@ function ProductCard({ product, onAdd }) {
         <p className="text-sm text-gray-600 mt-1">{product.description}</p>
         <button
           onClick={() => onAdd(product)}
-          className="mt-3 bg-maroon text-white text-sm px-3 py-1.5 rounded flex items-center gap-1"
+          className="mt-3 bg-maroon text-white text-sm px-3 py-1.5 rounded flex items-center gap-1 cursor-pointer"
         >
           + Add
         </button>

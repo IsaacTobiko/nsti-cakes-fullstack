@@ -35,7 +35,7 @@ function Products() {
           (p) => p.category === cat,
         );
         return (
-          <div key={cat} className="mb-10  max-w-6xl mx-auto">
+          <div key={cat} className="mb-10 max-w-6xl mx-auto">
             <div className="inline-block bg-maroon-dark text-white px-3 py-1 text-sm sm:px-4 sm:py-1 sm:text-base rounded mb-4">
               {cat} cakes
             </div>

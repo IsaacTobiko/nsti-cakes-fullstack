@@ -15,7 +15,7 @@ function Products() {
   };
   return (
     <div className="p-4 md:p-6">
-      <div className="flex flex-wrap gap-2 sm:gap-3 mb-8 justify-center items-center">
+      <div className="max-w-6xl mx-auto flex flex-wrap gap-2 sm:gap-3 mb-8 justify-start items-center">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -54,4 +54,5 @@ function Products() {
     </div>
   );
 }
+
 export default Products;

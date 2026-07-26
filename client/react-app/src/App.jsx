@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Products from "./pages/Products";
@@ -40,6 +41,7 @@ function AppContent() {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
+      {location.pathname === "/products" && <Footer />}
     </>
   );
 }

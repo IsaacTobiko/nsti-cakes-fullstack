@@ -14,7 +14,7 @@ function Products() {
     console.log("Added:", product);
   };
   return (
-    <div className="p-4 md:p-6">
+    <div id="products" className="p-4 md:p-6">
       <div className="max-w-6xl mx-auto flex flex-wrap gap-2 sm:gap-3 mb-8 justify-start items-center">
         {categories.map((cat) => (
           <button

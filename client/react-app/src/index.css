@@ -52,3 +52,6 @@
   opacity: 0;
   animation: slideInLeft 1s ease-out 0.4s forwards;
 }
+html {
+  scroll-behavior: smooth;
+}

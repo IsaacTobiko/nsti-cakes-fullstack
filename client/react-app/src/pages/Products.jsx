@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { productsData, categories } from "../data/productsData";
 import ProductCard from "../components/ProductCard";
+import { useCart } from "../context/CartContext";
 
 function Products() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const { addToCart } = useCart();
 
   const categoriesToShow =
     activeCategory === "All"
@@ -11,7 +13,7 @@ function Products() {
       : [activeCategory];
 
   const handleAdd = (product) => {
-    console.log("Added:", product);
+    addToCart(product);
   };
   return (
     <div id="products" className="p-4 md:p-6">

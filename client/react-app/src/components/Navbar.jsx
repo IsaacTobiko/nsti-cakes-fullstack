@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useCart } from "../context/CartContext";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartCount } = useCart();
   return (
     <nav className="bg-maroon-dark text-white px-4 py-4 flex flex-col gap-2">
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
@@ -28,8 +30,16 @@ function Navbar() {
             Login/Sign Up
           </Link>
 
-          <Link to="/cart" className="hover:text-gold transition-colors">
+          <Link
+            to="/cart"
+            className="relative hover:text-gold transition-colors"
+          >
             <i className="fa-solid fa-cart-shopping text-lg"></i>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-gold text-maroon-dark text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
           </Link>
 
           <a
@@ -64,7 +74,7 @@ function Navbar() {
             className="flex items-center gap-2 hover:text-gold transition-colors"
           >
             <i className="fa-solid fa-cart-shopping"></i>
-            Cart
+            Cart{cartCount > 0 && ` (${cartCount})`}
           </Link>
 
           <a

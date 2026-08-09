@@ -15,11 +15,14 @@ import Checkout from "./pages/Checkout";
 import AdminDashboard from "./pages/AdminDashboard";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import ForgotPassword from "./pages/ForgotPassword";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <CartProvider>
+        <AppContent />
+      </CartProvider>
     </BrowserRouter>
   );
 }

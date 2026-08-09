@@ -32,7 +32,7 @@ function AppContent() {
 
   return (
     <>
-      {location.pathname === "/products" && <Navbar />}
+      {["/products", "/cart"].includes(location.pathname) && <Navbar />}
       <Routes>
         <Route path="/" element={<Navigate to="/products" replace />} />
         <Route path="/login" element={<Login />} />
@@ -44,7 +44,7 @@ function AppContent() {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
-      {location.pathname === "/products" && <Footer />}
+      {["/products", "/cart"].includes(location.pathname) && <Footer />}
     </>
   );
 }

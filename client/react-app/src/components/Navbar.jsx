@@ -42,12 +42,12 @@ function Navbar() {
             )}
           </Link>
 
-          <a
-            href="#products"
+          <Link
+            to="/products"
             className="bg-gold hover:bg-gold-light text-maroon-dark font-semibold px-6 py-2 rounded-full transition-colors"
           >
             Order Now
-          </a>
+          </Link>
         </div>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
@@ -77,13 +77,13 @@ function Navbar() {
             Cart{cartCount > 0 && ` (${cartCount})`}
           </Link>
 
-          <a
-            href="#products"
+          <Link
+            to="/products"
             onClick={() => setMenuOpen(false)}
             className="bg-gold hover:bg-gold-light text-maroon-dark font-semibold px-6 py-2 rounded-full text-center transition-colors"
           >
             Order Now
-          </a>
+          </Link>
         </div>
       )}
 

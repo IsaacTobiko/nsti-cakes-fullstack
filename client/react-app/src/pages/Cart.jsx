@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 function Cart() {
   const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const navigate = useNavigate();
   if (cartItems.length === 0) {
     return (
       <div className="bg-gray-200 px-4 py-16 flex flex-col items-center justify-center text-center min-h-[50vh]">
@@ -17,7 +18,7 @@ function Cart() {
           to="/products"
           className="bg-maroon-dark hover:bg-maroon text-white font-semibold px-6 py-3 rounded-full transition-colors"
         >
-          Browse Cakes
+          Order Cakes
         </Link>
       </div>
     );
@@ -106,7 +107,10 @@ function Cart() {
                   <span>Delivery Fee</span>
                   <span>KSh {deliveryFee}</span>
                 </div>
-                <button className="bg-maroon-dark hover:bg-maroon text-white font-semibold py-3 rounded-full mt-2 cursor-pointer">
+                <button
+                  onClick={() => navigate("/checkout")}
+                  className="bg-maroon-dark hover:bg-maroon text-white font-semibold py-3 rounded-full mt-2 cursor-pointer"
+                >
                   Checkout (KSH {total.toLocaleString()})
                 </button>
               </div>

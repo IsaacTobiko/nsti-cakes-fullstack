@@ -1,5 +1,5 @@
-function Login() {
-  return <div>Login Page</div>;
+function AdminDashboard() {
+  return <div>Admin Dashboard</div>;
 }
 
-export default Login;
+export default AdminDashboard;

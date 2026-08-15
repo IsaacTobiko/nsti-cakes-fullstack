@@ -32,7 +32,7 @@ function OrderConfirmation() {
       </div>
 
       <h1
-        className="text-3xl font-serif text-white mb-4 animate-slide-up"
+        className="text-2xl md:text-3xl font-serif text-white mb-4 animate-slide-up"
         style={{ animationDelay: "0.2s", opacity: 0 }}
       >
         Order <span className="text-gold">Confirmed!</span>

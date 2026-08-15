@@ -32,6 +32,8 @@ export const productsData = [
     image: W1,
     description:
       "Ivory bridal lace meets black tuxedo on this stunning 3 tier wedding centrepiece with peach rose crown.",
+    stock: "In Stock",
+    sold: 14,
   },
   {
     id: 2,
@@ -41,6 +43,8 @@ export const productsData = [
     image: W2,
     description:
       "White fondant with cascading crimson roses and a red ombré watercolour base. Breathtaking floral beauty.",
+    stock: "Low Stock",
+    sold: 9,
   },
   {
     id: 3,
@@ -50,6 +54,8 @@ export const productsData = [
     image: W3,
     description:
       "Buttercream with white pearls, real gold leaf, fresh red roses and a personalised gold heart topper.",
+    stock: "In Stock",
+    sold: 6,
   },
   {
     id: 4,
@@ -59,6 +65,8 @@ export const productsData = [
     image: W4,
     description:
       "White fondant with swag piping, quilted base, crimson ribbons and a couple figurine topper.",
+    stock: "Out of Stock",
+    sold: 11,
   },
 
   {
@@ -69,6 +77,8 @@ export const productsData = [
     image: K1,
     description:
       "White fondant with pink & blue baby shoes, hearts and colourful 'Mom To Be' fondant lettering.",
+    stock: "In Stock",
+    sold: 18,
   },
   {
     id: 6,
@@ -78,6 +88,8 @@ export const productsData = [
     image: K2,
     description:
       "Light blue fondant sculpted as a baby feeding bottle with pastel 'Coming Soon' lettering.",
+    stock: "In Stock",
+    sold: 15,
   },
   {
     id: 7,
@@ -87,6 +99,8 @@ export const productsData = [
     image: K3,
     description:
       "Blue & pink split cake with matching crown toppers, drip finish and a 'He or She' plaque.",
+    stock: "Low Stock",
+    sold: 21,
   },
   {
     id: 8,
@@ -96,6 +110,8 @@ export const productsData = [
     image: K4,
     description:
       "White fondant with pink & blue polka dots, fondant baby shoes and sleeping baby topper.",
+    stock: "In Stock",
+    sold: 13,
   },
 
   {
@@ -106,6 +122,8 @@ export const productsData = [
     image: G1,
     description:
       "Lavender buttercream with white pearls, fondant mortarboard, diploma and gold Congratulations topper.",
+    stock: "In Stock",
+    sold: 10,
   },
   {
     id: 10,
@@ -115,6 +133,8 @@ export const productsData = [
     image: G2,
     description:
       "3-tier sculpted academic book-stack with gold lettering, mortarboard and diploma scroll.",
+    stock: "In Stock",
+    sold: 7,
   },
   {
     id: 11,
@@ -124,6 +144,8 @@ export const productsData = [
     image: G3,
     description:
       "Heart shaped ivory buttercream with 'Class of 2025', black ribbons and vintage shell piping.",
+    stock: "Out of Stock",
+    sold: 16,
   },
   {
     id: 12,
@@ -133,6 +155,8 @@ export const productsData = [
     image: G4,
     description:
       "Matte black with gold leaf band, mortarboard, diploma and Congratulations 2025 topper.",
+    stock: "In Stock",
+    sold: 12,
   },
 
   {
@@ -143,6 +167,8 @@ export const productsData = [
     image: C1,
     description:
       "Dark chocolate sponge under a flawless glossy ganache coat with rosette crown and sprinkles.",
+    stock: "In Stock",
+    sold: 31,
   },
   {
     id: 14,
@@ -152,6 +178,8 @@ export const productsData = [
     image: C2,
     description:
       "Chocolate drip with cream swirls, truffle balls, wafer pieces and chocolate shavings piled high.",
+    stock: "Low Stock",
+    sold: 27,
   },
   {
     id: 15,
@@ -161,6 +189,8 @@ export const productsData = [
     image: C3,
     description:
       "Ivory buttercream with milk chocolate drip, fresh strawberries, chocolate bar shards and pearls.",
+    stock: "In Stock",
+    sold: 22,
   },
   {
     id: 16,
@@ -170,6 +200,8 @@ export const productsData = [
     image: C4,
     description:
       "Chocolate ombré buttercream from dark to light, with ganache drip and mocha rosettes on top.",
+    stock: "In Stock",
+    sold: 19,
   },
 
   {
@@ -180,6 +212,8 @@ export const productsData = [
     image: B1,
     description:
       "2-tier cake with chocolate drip, gold sphere balls, gold star decorations and a glittering topper.",
+    stock: "In Stock",
+    sold: 24,
   },
   {
     id: 18,
@@ -189,6 +223,8 @@ export const productsData = [
     image: B2,
     description:
       "Loaded with Oreos, chocolate truffles, gold candles, cream swirls and a rich chocolate drip.",
+    stock: "In Stock",
+    sold: 20,
   },
   {
     id: 19,
@@ -198,6 +234,8 @@ export const productsData = [
     image: B3,
     description:
       "Full rosette ombré in lavender and cream with 'Happy Birthday' script and warm gold candles.",
+    stock: "Low Stock",
+    sold: 17,
   },
   {
     id: 20,
@@ -207,6 +245,8 @@ export const productsData = [
     image: B4,
     description:
       "Matte black fondant with Mercedes star emblem, chrome spheres and model car topper.",
+    stock: "In Stock",
+    sold: 8,
   },
 ];
 

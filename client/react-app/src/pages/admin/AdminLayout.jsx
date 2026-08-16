@@ -24,6 +24,7 @@ const navItems = [
 ];
 
 function AdminLayout() {
+  const [SidebarOpen, setSidebarOpen] = useState(false);
   const pendingCount = orders.filter((o) => o.status === "pending").length;
 
   return (

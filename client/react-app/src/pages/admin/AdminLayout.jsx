@@ -90,7 +90,60 @@ function AdminLayout() {
           LogOut
         </button>
       </aside>
+      <div className="flex-1 flex flex-col min-w-0">
+        <AdminTopBar onMenuClick={() => setSidebarOpen(true)} />
+        <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
+          <Outlet />
+        </main>
+        <footer className="bg-black text-gray-400 text-xs text-center py-3 px-4">
+          © 2026 NSTI Cakes. All rights reserved.
+        </footer>
+      </div>
     </div>
+  );
+}
+
+function AdminTopBar({ onMenuClick }) {
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <header className="bg-maroon-dark px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
+      <div className="flex items-center gap-3 min-w-0">
+        <button
+          className="md:hidden text-gray-200 hover:text-gold flex-shrink-0"
+          onClick={onMenuClick}
+        >
+          <Menu size={22} />
+        </button>
+        <div className="min-w-0">
+          <h1 className="text-white font-serif text-lg sm:text-xl truncate">
+            Dashboard
+          </h1>
+          <p className="text-gray-300 text-xs sm:text-sm hidden sm:block truncate">
+            Welcome back, Admin Isaac {today}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0">
+        <button className="text-gray-200 hover:text-gold">🔔</button>
+        <div className="flex items-center gap-2">
+          <div className="w-9 h-9 rounded-full bg-gold flex items-center justify-center font-bold text-maroon-dark flex-shrink-0">
+            W
+          </div>
+
+          <div className="text-sm hidden sm:block">
+            <p className="text-white font-medium leading-tight">Admin Isaac</p>
+            <p className="text-gray-300 text-xs">Super Admin</p>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }
 export default AdminLayout;

@@ -35,7 +35,7 @@ function AdminLayout() {
         />
       )}
       <aside
-        className={`fixed md:static top-0 left-0 h-full w-64 bg-maroon-dark flex-shrink-0 flex flex-col z-40 transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-screen w-64 bg-maroon-dark flex-shrink-0 flex flex-col z-40 transform transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
@@ -85,12 +85,12 @@ function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        <button className="flex items-center gap-3 px-4 sm:px-6 py-5 text-gray-300 hover:text-white text-sm border-t border-maroon-light/40">
+        <button className="flex items-center gap-3 px-4 sm:px-6 py-5 text-gray-300 hover:text-white text-sm border-t border-maroon-light/40 ">
           <LogOut size={18} />
           LogOut
         </button>
       </aside>
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 md:ml-64">
         <AdminTopBar onMenuClick={() => setSidebarOpen(true)} />
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
           <Outlet />

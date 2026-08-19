@@ -82,7 +82,7 @@ function Dashboard() {
               Revenue Overview
             </h2>
             <p className="text-sm text-maroon">
-              KSH{total.toLocaleString()} {periodLabel}
+              KSH {total.toLocaleString()} {periodLabel}
             </p>
           </div>
           <div className="flex bg-gray-100 rounded-lg p-1 w-fit">
@@ -108,7 +108,46 @@ function Dashboard() {
             </button>
           </div>
         </div>
-        <div className="h-56 sm:h-72"></div>
+
+        <div className="h-56 sm:h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data}>
+              <defs>
+                <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#C9971F" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#C9971F" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid vertical={false} stroke="#eee" />
+              <XAxis
+                dataKey="day"
+                tick={{ fontSize: 12, fill: "#6b5b5f" }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                tick={{ fontSize: 12, fill: "#6b5b5f" }}
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={(val) => `${val / 1000}K`}
+              />
+              <Tooltip
+                formatter={(value) => [
+                  `KSH ${value.toLocaleString()}`,
+                  "Revenue",
+                ]}
+              />
+              <Line
+                type="monotone"
+                dataKey="amount"
+                stroke="#C9971F"
+                strokeWidth={2.5}
+                dot={false}
+                connectNulls={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

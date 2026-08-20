@@ -20,6 +20,7 @@ import {
   statCards,
   weeklyRevenue,
   monthlyRevenue,
+  topSellingCakes,
 } from "../../data/dashboardStats";
 
 const iconMap = {
@@ -149,7 +150,39 @@ function Dashboard() {
           </ResponsiveContainer>
         </div>
       </div>
+      <TopSellingCakes />
     </div>
   );
 }
+
+function TopSellingCakes() {
+  const maxOrders = Math.max(...topSellingCakes.map((c) => c.orders));
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-5">
+      <h2 className="font-serif text-lg text-maroon-dark mb-4">
+        Top Selling Cakes
+      </h2>
+      <div className="space-y-4">
+        {topSellingCakes.map((cake) => (
+          <div key={cake.rank}>
+            <div className="flex items-center justify-between text-sm mb-1.5">
+              <span className="text-maroon-dark font-medium">
+                {cake.rank}. {cake.name}
+              </span>
+              <span className="text-gray-500">{cake.orders} orders</span>
+            </div>
+            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-maroon to-gold rounded-full"
+                style={{ width: `${(cake.orders / maxOrders) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default Dashboard;

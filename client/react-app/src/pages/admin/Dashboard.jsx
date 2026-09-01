@@ -23,6 +23,8 @@ import {
   topSellingCakes,
 } from "../../data/dashboardStats";
 
+import { orders } from "../../data/orders";
+
 const iconMap = {
   "Total Orders": ShoppingBag,
   Revenue: TrendingUp,
@@ -151,6 +153,7 @@ function Dashboard() {
         </div>
       </div>
       <TopSellingCakes />
+      <RecentOrders />
     </div>
   );
 }
@@ -184,5 +187,70 @@ function TopSellingCakes() {
     </div>
   );
 }
+const statusStyles = {
+  Delivered: "bg-gold-light/30 text-gold-dark",
+  Pending: "bg-maroon-light/20 text-maroon",
+  Processing: "bg-blue-100 text-blue-600",
+  Cancelled: "bg-red-100 text-red-600",
+};
 
+function RecentOrders() {
+  const recent = orders.slice(0, 5);
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-serif text-lg text-maroon-dark">Recent Orders</h2>
+        <button className="text-sm border border-gold text-gold px-4 py-1.5 rounded-full hover:bg-gold hover:text-white transition">
+          View all orders
+        </button>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[600px]">
+          <thead>
+            <tr className="text-left text-maroon-dark uppercase text-xs bg-maroon-light/10">
+              <th className="py-3 pb-3 font-bold">Order ID</th>
+              <th className="py-3 pb-3 font-bold">Customer</th>
+              <th className="py-3 pb-3 font-bold">Cake</th>
+              <th className="py-3 pb-3 font-bold">Amount</th>
+              <th className="py-3 pb-3 font-bold">Status</th>
+              <th className="py-3 pb-3 font-bold">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recent.map((order) => (
+              <tr key={order.id} className="border-b last:border-0">
+                <td className="py-3 font-medium text-maroon-dark">
+                  #{order.id}
+                </td>
+                <td className="py-3 text-gray-700">{order.customer}</td>
+                <td className="py-3 text-gray-700">{order.cake}</td>
+                <td className="py-3 text-gold font-medium">
+                  KSH {order.amount.toLocaleString()}
+                </td>
+                <td className="py-3">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      statusStyles[order.status]
+                    }`}
+                  >
+                    {order.status}
+                  </span>
+                </td>
+                <td className="py-3 text-gray-500">
+                  {new Date(order.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 export default Dashboard;

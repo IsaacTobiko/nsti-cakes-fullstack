@@ -78,81 +78,84 @@ function Dashboard() {
           );
         })}
       </div>
-      <div className="bg-white rounded-xl shadow-sm p-5">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-          <div>
-            <h2 className="font-serif text-lg text-maroon-dark">
-              Revenue Overview
-            </h2>
-            <p className="text-sm text-maroon">
-              KSH {total.toLocaleString()} {periodLabel}
-            </p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl shadow-sm p-5 lg:col-span-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div>
+              <h2 className="font-serif text-lg text-maroon-dark">
+                Revenue Overview
+              </h2>
+              <p className="text-sm text-maroon">
+                KSH {total.toLocaleString()} {periodLabel}
+              </p>
+            </div>
+            <div className="flex bg-gray-100 rounded-lg p-1 w-fit">
+              <button
+                onClick={() => setRange("weekly")}
+                className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
+                  range === "weekly"
+                    ? "bg-maroon-dark text-white"
+                    : "text-gray-500 hover:text-maroon-dark"
+                }`}
+              >
+                Weekly
+              </button>
+              <button
+                onClick={() => setRange("monthly")}
+                className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
+                  range === "monthly"
+                    ? "bg-maroon-dark text-white"
+                    : "text-gray-500 hover:text-maroon-dark"
+                }`}
+              >
+                Monthly
+              </button>
+            </div>
           </div>
-          <div className="flex bg-gray-100 rounded-lg p-1 w-fit">
-            <button
-              onClick={() => setRange("weekly")}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
-                range === "weekly"
-                  ? "bg-maroon-dark text-white"
-                  : "text-gray-500 hover:text-maroon-dark"
-              }`}
-            >
-              Weekly
-            </button>
-            <button
-              onClick={() => setRange("monthly")}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
-                range === "monthly"
-                  ? "bg-maroon-dark text-white"
-                  : "text-gray-500 hover:text-maroon-dark"
-              }`}
-            >
-              Monthly
-            </button>
+
+          <div className="h-56 sm:h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <defs>
+                  <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#C9971F" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#C9971F" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid vertical={false} stroke="#eee" />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fontSize: 12, fill: "#6b5b5f" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <YAxis
+                  tick={{ fontSize: 12, fill: "#6b5b5f" }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(val) => `${val / 1000}K`}
+                />
+                <Tooltip
+                  formatter={(value) => [
+                    `KSH ${value.toLocaleString()}`,
+                    "Revenue",
+                  ]}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="amount"
+                  stroke="#C9971F"
+                  strokeWidth={2.5}
+                  dot={false}
+                  connectNulls={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="h-56 sm:h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <defs>
-                <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#C9971F" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#C9971F" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid vertical={false} stroke="#eee" />
-              <XAxis
-                dataKey="day"
-                tick={{ fontSize: 12, fill: "#6b5b5f" }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 12, fill: "#6b5b5f" }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(val) => `${val / 1000}K`}
-              />
-              <Tooltip
-                formatter={(value) => [
-                  `KSH ${value.toLocaleString()}`,
-                  "Revenue",
-                ]}
-              />
-              <Line
-                type="monotone"
-                dataKey="amount"
-                stroke="#C9971F"
-                strokeWidth={2.5}
-                dot={false}
-                connectNulls={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        <TopSellingCakes />
       </div>
-      <TopSellingCakes />
       <RecentOrders />
     </div>
   );

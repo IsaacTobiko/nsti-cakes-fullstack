@@ -39,6 +39,48 @@ function AdminProducts() {
           </button>
         </div>
       </div>
+      {filtered.length === 0 ? (
+        <div className="bg-white rounded-xl shadow-sm p-10 text-center text-gray-400">
+          No products found.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {filtered.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col"
+            >
+              <div className="h-40 bg-maroon-light/10 flex items-center justify-center overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="p-4 flex flex-col gap-1.5">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-serif text-maroon-dark text-sm leading-snug">
+                    {product.name}
+                  </h3>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${stockStyles[product.stock]}`}
+                  >
+                    {product.stock}
+                  </span>
+                </div>
+                <p className="text-xs text-maroon">{product.category}</p>
+                <div className="flex items-center justify-between mt-2">
+                  <p className="text-gold font-serif text-lg">
+                    KSH {product.price.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-400">{product.sold} sold</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

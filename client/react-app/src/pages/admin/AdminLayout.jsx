@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -10,8 +10,12 @@ import {
   LogOut,
   Menu,
   X,
+  Bell,
+  AlertCircle,
+  UserPlus,
 } from "lucide-react";
 import { orders } from "../../data/orders";
+import { notifications } from "../../data/notifications";
 
 const navItems = [
   { label: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
@@ -103,13 +107,40 @@ function AdminLayout() {
   );
 }
 
+const notificationIcons = {
+  order: ShoppingBag,
+  payment: CreditCard,
+  stock: AlertCircle,
+  customer: UserPlus,
+};
+
+const notificationIconStyles = {
+  order: "bg-[#fbe9ec] text-maroon",
+  payment: "bg-[#f6e9d2] text-gold",
+  stock: "bg-[#fbe9ec] text-red-600",
+  customer: "bg-green-100 text-green-600",
+};
+
 function AdminTopBar({ onMenuClick }) {
+  const [notifOpen, setNotifOpen] = useState(false);
+  const notifRef = useRef(null);
+
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "short",
     day: "numeric",
     year: "numeric",
   });
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setNotifOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="bg-maroon-dark px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
@@ -131,7 +162,53 @@ function AdminTopBar({ onMenuClick }) {
       </div>
 
       <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0">
-        <button className="text-gray-200 hover:text-gold">🔔</button>
+        <div className="relative" ref={notifRef}>
+          <button
+            className="text-gray-200 hover:text-gold"
+            onClick={() => setNotifOpen((prev) => !prev)}
+          >
+            <Bell size={20} />
+          </button>
+
+          {notifOpen && (
+            <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="px-5 py-4 border-b border-gray-100">
+                <p className="font-serif text-lg text-maroon-dark">
+                  {" "}
+                  Notifications
+                </p>
+              </div>
+              <div className="max-h-96 overflow-y-auto divide-y divide-gray-100">
+                {notifications.map((n) => {
+                  const Icon = notificationIcons[n.type];
+                  return (
+                    <div
+                      key={n.id}
+                      className="flex items-start gap-3 px-5 py-4 hover:bg-[#faf5f0] transition-colors"
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${notificationIconStyles[n.type]}`}
+                      >
+                        <Icon size={15} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-semibold text-maroon-dark text-sm">
+                          {n.title}
+                        </p>
+                        <p className="text-sm text-maroon-light">{n.message}</p>
+                        <p className="text-xs text-gray-400 mt-1">{n.time}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <button className="w-full text-center py-3 text-sm font-semibold text-gold hover:bg-[#faf5f0] transition-colors">
+                View all notifications
+              </button>
+            </div>
+          )}
+        </div>
         <div className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-full bg-gold flex items-center justify-center font-bold text-maroon-dark flex-shrink-0">
             W
@@ -146,4 +223,5 @@ function AdminTopBar({ onMenuClick }) {
     </header>
   );
 }
+
 export default AdminLayout;

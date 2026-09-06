@@ -4,7 +4,7 @@ function ProductCard({ product, onAdd }) {
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-56 sm:h-64 lg:h-72 object-cover"
+        className="w-full h-56 sm:h-64 lg:h-72 object-cover object-top"
       />
       <div className="p-3 flex flex-col flex-1">
         <h3 className="font-semibold text-maroon-dark">

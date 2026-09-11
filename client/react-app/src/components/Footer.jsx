@@ -84,7 +84,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="bg-gray-400 text-center text-sm py-3">
+      <div className="bg-maroon-dark border-t border-gold/20 text-center text-sm py-3">
         @Copyright 2026 All Rights Reserved Nairobi South Training Institute
       </div>
     </footer>

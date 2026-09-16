@@ -89,7 +89,7 @@ function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        <button className="flex items-center gap-3 px-4 sm:px-6 py-5 text-gray-300 hover:text-white text-sm border-t border-maroon-light/40 ">
+        <button className="cursor-pointer flex items-center gap-3 px-4 sm:px-6 py-5 text-gray-300 hover:text-white text-sm border-t border-maroon-light/40 ">
           <LogOut size={18} />
           LogOut
         </button>

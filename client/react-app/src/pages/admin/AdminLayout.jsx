@@ -171,7 +171,7 @@ function AdminTopBar({ onMenuClick }) {
           </button>
 
           {notifOpen && (
-            <div className=" absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-xl shadow-xl z-50 overflow-hidden">
+            <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-xl shadow-xl z-50 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-100">
                 <p className="font-serif text-lg text-maroon-dark">
                   {" "}

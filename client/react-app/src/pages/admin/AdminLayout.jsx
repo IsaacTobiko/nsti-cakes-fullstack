@@ -164,14 +164,14 @@ function AdminTopBar({ onMenuClick }) {
       <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0">
         <div className="relative" ref={notifRef}>
           <button
-            className="text-gray-200 hover:text-gold"
+            className="text-gray-200 hover:text-gold cursor-pointer"
             onClick={() => setNotifOpen((prev) => !prev)}
           >
             <Bell size={20} />
           </button>
 
           {notifOpen && (
-            <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-xl shadow-xl z-50 overflow-hidden">
+            <div className=" absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-xl shadow-xl z-50 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-100">
                 <p className="font-serif text-lg text-maroon-dark">
                   {" "}
@@ -203,7 +203,7 @@ function AdminTopBar({ onMenuClick }) {
                 })}
               </div>
 
-              <button className="w-full text-center py-3 text-sm font-semibold text-gold hover:bg-[#faf5f0] transition-colors">
+              <button className="cursor-pointer w-full text-center py-3 text-sm font-semibold text-gold hover:bg-[#faf5f0] transition-colors">
                 View all notifications
               </button>
             </div>

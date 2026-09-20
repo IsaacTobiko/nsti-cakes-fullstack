@@ -50,7 +50,7 @@ function Footer() {
             />
             <button
               onClick={handleSubmit}
-              className="bg-white text-black font-semibold px-6 py-3 rounded-md w-fit hover:bg-gray-200 transition-colors cursor-pointer"
+              className="bg-white  text-black font-semibold px-4 py-2 rounded-md w-fit hover:bg-gray-200 transition-colors cursor-pointer"
             >
               Submit
             </button>

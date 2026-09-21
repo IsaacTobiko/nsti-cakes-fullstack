@@ -22,7 +22,7 @@ function Products() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base cursor-pointer rounded-full border whitespace-nowrap ${
+            className={`hover:bg-maroon hover:text-white px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base cursor-pointer rounded-full border whitespace-nowrap  ${
               activeCategory === cat
                 ? "bg-maroon text-white"
                 : "bg-white text-maroon-dark"

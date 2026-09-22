@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 *.db
 hs_err_pid*.log
+.env

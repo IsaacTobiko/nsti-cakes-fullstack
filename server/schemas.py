@@ -64,3 +64,22 @@ class ShowOrder(BaseModel):
 
     class Config:
         from_attributes = True
+
+class PaymentCreate(BaseModel):
+    txn_id: str
+    order_id: int
+    method: str
+    amount: float
+    status: str = "Pending"
+
+class ShowPayment(BaseModel):
+    id: int
+    txn_id: str
+    order_id: int
+    method: str
+    amount: float
+    status: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True

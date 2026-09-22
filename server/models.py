@@ -38,3 +38,16 @@ class Order(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     customer = relationship("User", back_populates="orders")
+
+class Payment(Base):
+    __tablename__= "payments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    txn_id = Column(String, unique=True, index=True)
+    order_id = Column(Integer, ForeignKey("orders.id"))
+    method = Column(String)
+    amount = Column(Float)
+    status = Column(String, default="Pending")
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    order = relationship("Order")

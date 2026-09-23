@@ -1,17 +1,29 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   function isEmailValid() {
     if (email.length === 0) return true;
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return validEmail.test(email);
   }
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Login sumbmitted!", { email, password });
+    setError("");
+    try {
+      await login(email, password);
+      navigate("/products");
+    } catch (err) {
+      setError("Invalid email or password");
+    }
   }
 
   return (
@@ -110,6 +122,7 @@ function Login() {
               Forgot password?
             </a>
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           <div>
             <button
               type="submit"

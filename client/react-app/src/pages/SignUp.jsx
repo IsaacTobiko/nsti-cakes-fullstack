@@ -1,14 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function SignUp() {
-  //input values
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [error, setError] = useState("");
+  const { signup } = useAuth();
+  const navigate = useNavigate();
 
-  // Password strength
   function getPasswordStrength() {
     if (password.length === 0) return null;
     if (password.length < 6)
@@ -17,21 +21,25 @@ function SignUp() {
       return { text: "Medium password", color: "text-yellow-500" };
     return { text: "Strong password", color: "text-green-500" };
   }
-  //Email validation
+
   function isEmailValid() {
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return email.length === 0 || validEmail.test(email);
   }
 
-  // Password match check
   function passwordsMatch() {
     return confirmPassword.length === 0 || password === confirmPassword;
   }
-  // Form submit
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
     if (password !== confirmPassword) return;
-    console.log("Form submitted!", { email, password });
+    try {
+      await signup(name, email, password);
+      navigate("/login");
+    } catch (err) {
+      setError("Could not create account");
+    }
   }
 
   const strength = getPasswordStrength();
@@ -43,6 +51,22 @@ function SignUp() {
           Sign Up
         </h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <div className="flex flex-col gap-1">
+            <label className="text-sm md:text-base font-semibold text-gray-900">
+              Full Name
+            </label>
+            <div className="flex items-center gap-3 bg-white border border-gray-300 px-3 py-3 rounded-sm">
+              <i className="fas fa-user text-gray-900"></i>
+              <input
+                type="text"
+                placeholder="Your full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="flex-1 text-sm md:text-base outline-none bg-white"
+              />
+            </div>
+          </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm md:text-base font-semibold text-gray-900">
               Email Address
@@ -118,6 +142,7 @@ function SignUp() {
               </p>
             )}
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           <button
             type="submit"
             className="w-full bg-maroon hover:bg-maroon-dark text-white text-sm md:text-base font-semibold py-3 rounded-sm transition-colors duration-200 cursor-pointer"

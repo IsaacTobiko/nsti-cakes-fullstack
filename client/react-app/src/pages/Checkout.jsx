@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartItems, cartTotal } = useCart();
+  const { cartItems, cartTotal, clearCart } = useCart();
+  const { api } = useAuth();
 
   const [deliveryMethod, setDeliveryMethod] = useState("home");
   const [area, setArea] = useState("");
@@ -14,7 +16,7 @@ function Checkout() {
   const deliveryFee = deliveryMethod === "home" ? 300 : 0;
   const grandTotal = cartTotal + deliveryFee;
 
-  function handleConfirmOrder() {
+  async function handleConfirmOrder() {
     if (!area.trim()) {
       alert("Please enter your Area/Estate.");
       return;
@@ -31,17 +33,31 @@ function Checkout() {
       alert("Enter a valid M-Pesa number, e.g. 0712345678.");
       return;
     }
-    const orderData = {
-      cartItems,
-      deliveryMethod,
-      area,
-      town,
-      mpesaNumber,
-      subtotal: cartTotal,
-      deliveryFee,
-      grandTotal,
-    };
-    navigate("/order-confirmation", { state: { orderData } });
+    try {
+      for (const item of cartItems) {
+        await api.post("/orders/", {
+          order_code: `ORD-${Date.now()}-${item.id}`,
+          cake: item.name,
+          amount: item.price * item.quantity,
+          status: "Pending",
+        });
+      }
+
+      const orderData = {
+        cartItems,
+        deliveryMethod,
+        area,
+        town,
+        mpesaNumber,
+        subtotal: cartTotal,
+        deliveryFee,
+        grandTotal,
+      };
+      clearCart();
+      navigate("/order-confirmation", { state: { orderData } });
+    } catch (err) {
+      alert("Failed to place. Please try again.");
+    }
   }
 
   return (

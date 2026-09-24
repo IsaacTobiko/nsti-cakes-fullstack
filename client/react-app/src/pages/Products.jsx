@@ -1,11 +1,18 @@
-import { useState } from "react";
-import { productsData, categories } from "../data/productsData";
+import { useState, useEffect } from "react";
+import { categories } from "../data/productsData";
 import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 function Products() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [productsData, setProductsData] = useState([]);
   const { addToCart } = useCart();
+  const { api } = useAuth();
+
+  useEffect(() => {
+    api.get("/products/").then((res) => setProductsData(res.data));
+  }, []);
 
   const categoriesToShow =
     activeCategory === "All"

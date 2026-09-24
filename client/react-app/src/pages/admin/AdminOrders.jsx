@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, Search } from "lucide-react";
-import { orders } from "../../data/orders";
+import { useAuth } from "../../context/AuthContext";
 
 const statusStyles = {
   Delivered: "bg-gold-light/30 text-gold-dark",
@@ -14,6 +14,12 @@ const tabs = ["All", "Pending", "Processing", "Delivered", "Cancelled"];
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("All");
   const [search, setSearch] = useState("");
+  const [orders, setOrders] = useState([]);
+  const { api } = useAuth();
+
+  useEffect(() => {
+    api.get("/orders/").then((res) => setOrders(res.data));
+  }, []);
 
   const counts = {
     All: orders.length,
@@ -26,8 +32,7 @@ function AdminOrders() {
     .filter((o) => activeTab === "All" || o.status === activeTab)
     .filter(
       (o) =>
-        o.id.toLowerCase().includes(search.toLowerCase()) ||
-        o.customer.toLowerCase().includes(search.toLowerCase()) ||
+        o.order_code.toLowerCase().includes(search.toLowerCase()) ||
         o.cake.toLowerCase().includes(search.toLowerCase()),
     );
 
@@ -102,14 +107,14 @@ function AdminOrders() {
               ) : (
                 filtered.map((order) => (
                   <tr
-                    key={order.id}
+                    key={order.order_code}
                     className="border-b border-gray-200 last:border-0"
                   >
                     <td className="py-3 px-3 font-medium text-maroon-dark">
-                      #{order.id}
+                      {order.order_code}
                     </td>
                     <td className="py-3 px-3 text-gray-700">
-                      {order.customer}
+                      Customer #{order.user_id}
                     </td>
                     <td className="py-3 px-3 text-gray-700">{order.cake}</td>
                     <td className="py-3 px-3 text-gold font-medium">
@@ -126,7 +131,7 @@ function AdminOrders() {
                     </td>
 
                     <td className="py-3 px-3 text-gray-500">
-                      {new Date(order.date).toLocaleDateString("en-US", {
+                      {new Date(order.created_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
                         year: "numeric",

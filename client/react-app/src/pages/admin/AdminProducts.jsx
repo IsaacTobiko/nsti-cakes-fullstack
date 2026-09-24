@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, Search } from "lucide-react";
-import { productsData } from "../../data/productsData";
+import { useAuth } from "../../context/AuthContext";
 
 const stockStyles = {
   "In Stock": "bg-green-100 text-green-700",
@@ -10,6 +10,12 @@ const stockStyles = {
 
 function AdminProducts() {
   const [search, setSearch] = useState("");
+  const [productsData, setProductsData] = useState([]);
+  const { api } = useAuth();
+
+  useEffect(() => {
+    api.get("/products/").then((res) => setProductsData(res.data));
+  }, []);
 
   const filtered = productsData.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase()),
@@ -64,9 +70,9 @@ function AdminProducts() {
                     {product.name}
                   </h3>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${stockStyles[product.stock]}`}
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap ${stockStyles[product.stock_status]}`}
                   >
-                    {product.stock}
+                    {product.stock_status}
                   </span>
                 </div>
                 <p className="text-xs text-maroon">{product.category}</p>

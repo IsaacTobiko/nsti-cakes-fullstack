@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
 
 function OrderConfirmation() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { clearCart } = useCart();
 
   const orderData = location.state?.orderData;
-
-  const [orderId] = useState(
-    () => `ORD-${Math.floor(10000000 + Math.random() * 90000000)}`,
-  );
 
   useEffect(() => {
     if (!orderData) {
       navigate("/products", { replace: true });
       return;
     }
-    clearCart();
   }, []);
 
   if (!orderData) {
@@ -46,9 +39,12 @@ function OrderConfirmation() {
         love. We'll contact you to confirm delivery.
       </p>
 
-      <div className="bg-white/10 rounded-full px-8 py-4">
-        <span className="text-gray-300 ">Order ID:</span>
-        <span className="text-gold font-semibold">{orderId}</span>
+      <div className="bg-white/10 rounded-full px-8 py-4 flex flex-wrap gap-2 justify-center">
+        {orderData.cartItems.map((item) => (
+          <span key={item.id} className="text-gold font-semibold">
+            {item.name}
+          </span>
+        ))}
       </div>
     </div>
   );

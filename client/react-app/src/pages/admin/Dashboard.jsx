@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShoppingBag,
   TrendingUp,
@@ -16,14 +16,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import {
-  statCards,
-  weeklyRevenue,
-  monthlyRevenue,
-  topSellingCakes,
-} from "../../data/dashboardStats";
 
-import { orders } from "../../data/orders";
+import { weeklyRevenue, monthlyRevenue } from "../../data/dashboardStats";
+import { useAuth } from "../../context/AuthContext";
 
 const iconMap = {
   "Total Orders": ShoppingBag,
@@ -34,10 +29,55 @@ const iconMap = {
 
 function Dashboard() {
   const [range, setRange] = useState("weekly");
+  const [stats, setStats] = useState(null);
+  const { api } = useAuth();
+
+  useEffect(() => {
+    api.get("/admin/stats").then((res) => setStats(res.data));
+  }, []);
+
   const data = range === "weekly" ? weeklyRevenue : monthlyRevenue;
 
   const total = data.reduce((sum, item) => sum + (item.amount || 0), 0);
   const periodLabel = range === "weekly" ? "this week" : "this year";
+
+  if (!stats)
+    return (
+      <div className="text-center  py-10 text-gray-400">
+        Loading dashboard...
+      </div>
+    );
+
+  const statCards = [
+    {
+      label: "Total Orders",
+      value: stats.total_orders,
+      trend: "",
+      trendDirection: "up",
+      note: "",
+    },
+    {
+      label: "Revenue",
+      value: `KSh ${stats.total_revenue.toLocaleString()}`,
+      trend: "",
+      trendDirection: "up",
+      note: "",
+    },
+    {
+      label: "Pending Orders",
+      value: stats.pending_orders,
+      trend: "",
+      trendDirection: "down",
+      note: "needs attention",
+    },
+    {
+      label: "New Customers",
+      value: stats.total_customers,
+      trend: "",
+      trendDirection: "up",
+      note: "",
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -154,15 +194,25 @@ function Dashboard() {
           </div>
         </div>
 
-        <TopSellingCakes />
+        <TopSellingCakes cakes={stats.top_selling_cakes} />
       </div>
       <RecentOrders />
     </div>
   );
 }
 
-function TopSellingCakes() {
-  const maxOrders = Math.max(...topSellingCakes.map((c) => c.orders));
+function TopSellingCakes({ cakes }) {
+  if (!cakes || cakes.length === 0) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-5">
+        <h2 className="font-serif text-lg text-maroon-dark mb-4">
+          Top Selling Cakes
+        </h2>
+        <p className="text-gray-400 text-sm">No orders yet.</p>
+      </div>
+    );
+  }
+  const maxOrders = Math.max(...cakes.map((c) => c.orders));
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-5">
@@ -170,11 +220,11 @@ function TopSellingCakes() {
         Top Selling Cakes
       </h2>
       <div className="space-y-4">
-        {topSellingCakes.map((cake) => (
-          <div key={cake.rank}>
+        {cakes.map((cake, i) => (
+          <div key={cake.name}>
             <div className="flex items-center justify-between text-sm mb-1.5">
               <span className="text-maroon-dark font-medium">
-                {cake.rank}. {cake.name}
+                {i + 1}. {cake.name}
               </span>
               <span className="text-gray-500">{cake.orders} orders</span>
             </div>
@@ -198,6 +248,13 @@ const statusStyles = {
 };
 
 function RecentOrders() {
+  const [orders, setOrders] = useState([]);
+  const { api } = useAuth();
+
+  useEffect(() => {
+    api.get("/orders/").then((res) => setOrders(res.data));
+  }, []);
+
   const recent = orders.slice(0, 5);
 
   return (
@@ -223,11 +280,13 @@ function RecentOrders() {
           </thead>
           <tbody>
             {recent.map((order) => (
-              <tr key={order.id} className="border-b last:border-0">
+              <tr key={order.order_code} className="border-b last:border-0">
                 <td className="py-3 font-medium text-maroon-dark">
-                  #{order.id}
+                  {order.order_code}
                 </td>
-                <td className="py-3 text-gray-700">{order.customer}</td>
+                <td className="py-3 text-gray-700">
+                  Customer #{order.user_id}
+                </td>
                 <td className="py-3 text-gray-700">{order.cake}</td>
                 <td className="py-3 text-gold font-medium">
                   KSH {order.amount.toLocaleString()}
@@ -242,7 +301,7 @@ function RecentOrders() {
                   </span>
                 </td>
                 <td className="py-3 text-gray-500">
-                  {new Date(order.date).toLocaleDateString("en-US", {
+                  {new Date(order.created_at).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year: "numeric",

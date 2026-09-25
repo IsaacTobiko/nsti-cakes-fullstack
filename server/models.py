@@ -51,3 +51,13 @@ class Payment(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     order = relationship("Order")
+
+class NotificationPrefs(Base):
+    __tablename__ = "notification_prefs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    new_orders = Column(Boolean, default=True)
+    payments = Column(Boolean, default=True)
+    low_stock = Column(Boolean, default=False)
+    new_customers = Column(Boolean, default=True)

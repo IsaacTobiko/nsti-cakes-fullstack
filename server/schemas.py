@@ -83,3 +83,20 @@ class ShowPayment(BaseModel):
 
     class Config:
         from_attributes = True
+
+class UserUpdate(BaseModel):
+    name: str
+    email: str
+
+class PasswordUpdate(BaseModel):
+    current_password: str
+    new_password: str
+
+class NotificationPrefsSchema(BaseModel):
+    new_orders: bool = True
+    payments: bool = True
+    low_stock: bool = False
+    new_customers: bool = True
+
+    class Config:
+        from_attributes = True

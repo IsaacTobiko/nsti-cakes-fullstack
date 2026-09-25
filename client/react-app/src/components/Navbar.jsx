@@ -51,7 +51,7 @@ function Navbar() {
         </div>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white text-2xl"
+          className="md:hidden text-white text-2xl cursor-pointer"
           aria-label="Toggle menu"
         >
           <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"}`}></i>

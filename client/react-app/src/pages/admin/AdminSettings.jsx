@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { User, Mail, Phone, Lock, Save } from "lucide-react";
+import { useState, useEffect } from "react";
+import { User, Mail, Lock, Save } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
 
 const initialToggles = {
   newOrders: true,
@@ -21,20 +22,26 @@ const Toggle = ({ checked, onChange }) => (
 );
 
 const AdminSettings = () => {
-  const [profile, setProfile] = useState({
-    fullName: "Admin Wanjiru",
-    email: "isaac@nsticakes.co.ke",
-    phone: "+254 743 776 184",
-    role: "Super Admin",
-  });
-
+  const { api } = useAuth();
+  const [profile, setProfile] = useState({ fullName: "", email: "" });
   const [passwords, setPasswords] = useState({
     current: "",
     new: "",
     confirm: "",
   });
-
   const [toggles, setToggles] = useState(initialToggles);
+  const [savedMsg, setSavedMsg] = useState("");
+
+  useEffect(() => {
+    api.get("/user/me/notifications").then((res) => {
+      setToggles({
+        newOrders: res.data.new_orders,
+        payments: res.data.payments,
+        lowStock: res.data.low_stock,
+        newCustomers: res.data.new_customers,
+      });
+    });
+  }, []);
 
   const handleProfileChange = (field) => (e) => {
     setProfile({ ...profile, [field]: e.target.value });
@@ -44,8 +51,15 @@ const AdminSettings = () => {
     setPasswords({ ...passwords, [field]: e.target.value });
   };
 
-  const handleToggle = (field) => {
-    setToggles({ ...toggles, [field]: !toggles[field] });
+  const handleToggle = async (field) => {
+    const updated = { ...toggles, [field]: !toggles[field] };
+    setToggles(updated);
+    await api.put("/user/me/notifications", {
+      new_orders: updated.newOrders,
+      payments: updated.payments,
+      low_stock: updated.lowStock,
+      new_customers: updated.newCustomers,
+    });
   };
 
   const notificationItems = [
@@ -115,40 +129,24 @@ const AdminSettings = () => {
                 />
               </div>
             </div>
-            <div>
-              <label className="block text-sm font-semibold text-maroon mb-1">
-                Phone
-              </label>
-              <div className="relative">
-                <Phone
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-maroon-light"
-                />
-                <input
-                  type="text"
-                  value={profile.phone}
-                  onChange={handleProfileChange("phone")}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-gray-200 bg-[#faf5f0] text-sm text-maroon-dark focus:outline-none focus:ring-2 focus:ring-gold"
-                />
-              </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-maroon mb-1">
-                Role
-              </label>
-              <input
-                type="text"
-                value={profile.role}
-                disabled
-                className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-gray-100 text-sm text-gray-400 cursor-not-allowed"
-              />
-            </div>
-
-            <button className="flex items-center gap-2 bg-maroon-dark hover:bg-maroon text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors">
+            <button
+              onClick={async () => {
+                await api.put("/user/me", {
+                  name: profile.fullName,
+                  email: profile.email,
+                });
+                setSavedMsg("Profile updated!");
+                setTimeout(() => setSavedMsg(""), 2000);
+              }}
+              className="flex items-center gap-2 bg-maroon-dark hover:bg-maroon text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors"
+            >
               <Save size={16} />
               Save Changes
             </button>
+            {savedMsg && (
+              <p className="text-green-600 text-sm mt-2">{savedMsg}</p>
+            )}
           </div>
         </div>
 
@@ -214,7 +212,23 @@ const AdminSettings = () => {
               </div>
             </div>
 
-            <button className="flex items-center gap-2 bg-maroon-dark hover:bg-maroon text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors">
+            <button
+              onClick={async () => {
+                try {
+                  await api.put("/user/me/password", {
+                    current_password: passwords.current,
+                    new_password: passwords.new,
+                  });
+                  setPasswords({ current: "", new: "", confirm: "" });
+                  alert("Password updated!");
+                } catch (err) {
+                  alert(
+                    "Failed to update password. Check your current password.",
+                  );
+                }
+              }}
+              className="flex items-center gap-2 bg-maroon-dark hover:bg-maroon text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors"
+            >
               <Lock size={16} />
               Update Password
             </button>

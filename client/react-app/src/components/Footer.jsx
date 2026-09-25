@@ -27,7 +27,7 @@ function Footer() {
             <input
               type="text"
               name="name"
-              placeholder="Full name"
+              placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
               className="bg-white text-black px-4 py-3 rounded-md outline-none"

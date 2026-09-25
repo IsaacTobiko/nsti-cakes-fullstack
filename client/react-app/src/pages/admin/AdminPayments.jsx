@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   CheckCircle2,
@@ -8,7 +8,7 @@ import {
   CreditCard,
   Landmark,
 } from "lucide-react";
-import { payments } from "../../data/payments";
+import { useAuth } from "../../context/AuthContext";
 
 const methodIcons = {
   "M-Pesa": Smartphone,
@@ -43,6 +43,12 @@ const formatDate = (isoDate) => {
 
 const AdminPayments = () => {
   const [search, setSearch] = useState("");
+  const [payments, setPayments] = useState([]);
+  const { api } = useAuth();
+
+  useEffect(() => {
+    api.get("/payments/").then((res) => setPayments(res.data));
+  }, []);
 
   const totalCollected = payments
     .filter((p) => p.status === "Completed")
@@ -56,9 +62,8 @@ const AdminPayments = () => {
 
   const filteredPayments = payments.filter(
     (p) =>
-      p.txnId.toLowerCase().includes(search.toLowerCase()) ||
-      p.orderId.toLowerCase().includes(search.toLowerCase()) ||
-      p.customer.toLowerCase().includes(search.toLowerCase()),
+      p.txn_id.toLowerCase().includes(search.toLowerCase()) ||
+      p.method.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -129,7 +134,6 @@ const AdminPayments = () => {
             <tr className="bg-[#faf5f0] text-maroon-dark uppercase text-xs tracking-wide">
               <th className="text-left font-semibold px-4 py-3">Txn ID</th>
               <th className="text-left font-semibold px-4 py-3">Order</th>
-              <th className="text-left font-semibold px-4 py-3">Customer</th>
               <th className="text-left font-semibold px-4 py-3">Method</th>
               <th className="text-left font-semibold px-4 py-3">Amount</th>
               <th className="text-left font-semibold px-4 py-3">Status</th>
@@ -138,20 +142,17 @@ const AdminPayments = () => {
           </thead>
           <tbody>
             {filteredPayments.map((payment) => {
-              const MethodIcon = methodIcons[payment.method];
+              const MethodIcon = methodIcons[payment.method] || Smartphone;
               return (
                 <tr
-                  key={payment.txnId}
+                  key={payment.txn_id}
                   className="border-t border-gray-100 hover:bg-[#faf5f0] transition-colors"
                 >
                   <td className="px-4 py-3 font-semibold text-maroon-dark">
-                    {payment.txnId}
+                    {payment.txn_id}
                   </td>
                   <td className="px-4 py-3 text-maroon-light">
-                    #{payment.orderId}
-                  </td>
-                  <td className="px-4 py-3 text-maroon-dark">
-                    {payment.customer}
+                    #{payment.order_id}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2 text-maroon-dark">
@@ -173,7 +174,7 @@ const AdminPayments = () => {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-gray-600">
-                    {formatDate(payment.date)}
+                    {formatDate(payment.created_at)}
                   </td>
                 </tr>
               );
@@ -181,7 +182,7 @@ const AdminPayments = () => {
 
             {filteredPayments.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center py-8 text-gray-400">
+                <td colSpan={6} className="text-center py-8 text-gray-400">
                   No transactions found.
                 </td>
               </tr>

@@ -46,7 +46,7 @@ function Products() {
         return (
           <div key={cat} className="mb-10 max-w-6xl mx-auto">
             <div className="inline-block bg-maroon-dark text-white px-3 py-1 text-sm sm:px-4 sm:py-1 sm:text-base rounded mb-4">
-              {cat} cakes
+              {cat} Cakes
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {productsInCategory.map((product) => (

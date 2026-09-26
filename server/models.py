@@ -61,3 +61,19 @@ class NotificationPrefs(Base):
     payments = Column(Boolean, default=True)
     low_stock = Column(Boolean, default=False)
     new_customers = Column(Boolean, default=True)
+
+class MpesaTransaction(Base):
+    __tablename__ = "mpesa_transactions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    checkout_request_id = Column(String, unique=True, index=True)
+    merchant_request_id = Column(String)
+    order_id = Column(Integer, ForeignKey("orders.id"))
+    phone_number = Column(String)
+    amount = Column(Float)
+    status = Column(String, default="Pending")
+    mpesa_receipt = Column(String, nullable=True)
+    result_desc = Column(String, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    order = relationship("Order")

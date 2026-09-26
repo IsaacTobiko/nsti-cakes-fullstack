@@ -58,7 +58,7 @@ function AdminProducts() {
             >
               <div className="h-40 bg-maroon-light/10 flex items-center justify-center overflow-hidden">
                 <img
-                  src={product.image}
+                  src={`${import.meta.env.VITE_API_URL}${product.image}`}
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />

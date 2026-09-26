@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -29,6 +31,8 @@ const navItems = [
 function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pendingCount = orders.filter((o) => o.status === "Pending").length;
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="flex min-h-screen bg-gray-100 relative">
@@ -89,7 +93,13 @@ function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        <button className="cursor-pointer flex items-center gap-3 px-4 sm:px-6 py-5 text-gray-300 hover:text-white text-sm border-t border-maroon-light/40 ">
+        <button
+          onClick={() => {
+            logout();
+            navigate("/login");
+          }}
+          className="cursor-pointer flex items-center gap-3 px-4 sm:px-6 py-5 text-gray-300 hover:text-white text-sm border-t border-maroon-light/40 "
+        >
           <LogOut size={18} />
           LogOut
         </button>

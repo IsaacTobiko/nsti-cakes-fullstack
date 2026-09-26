@@ -2,7 +2,7 @@ function ProductCard({ product, onAdd }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
       <img
-        src={product.image}
+        src={`${import.meta.env.VITE_API_URL}${product.image}`}
         alt={product.name}
         className="w-full h-56 sm:h-64 lg:h-72 object-cover object-top"
       />

@@ -12,7 +12,7 @@ A full-stack cake ordering platform built for Nairobi South Training Institute B
 - Customer signup/login (JWT authentication)
 - Browse cakes by category (Wedding, Baby Shower, Graduation, Chocolate, Birthday)
 - Cart and checkout flow
-- M-Pesa STK Push payment (Safaricom Daraja API — sandbox)
+- M-Pesa STK Push payment (Safaricom Daraja API sandbox)
 - Admin dashboard: revenue stats, top-selling cakes, recent orders
 - Admin management: orders, products, customers, payments, settings
 - Notification preferences and password management

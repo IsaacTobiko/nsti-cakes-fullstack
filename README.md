@@ -1,6 +1,6 @@
 # NSTI Cakes
 
-A full-stack cake ordering platform built for Nairobi South Training Institute Bakery, with customer ordering, an admin dashboard, and M-Pesa payment integration.
+A full stack cake ordering platform built for Nairobi South Training Institute Bakery, with customer ordering, an admin dashboard, and M-Pesa payment integration.
 
 **Live demo:** https://nsti-cakes-fullstack.vercel.app
 **API:** https://nsti-cakes-backend.onrender.com/docs
@@ -13,7 +13,7 @@ A full-stack cake ordering platform built for Nairobi South Training Institute B
 - Browse cakes by category (Wedding, Baby Shower, Graduation, Chocolate, Birthday)
 - Cart and checkout flow
 - M-Pesa STK Push payment (Safaricom Daraja API sandbox)
-- Admin dashboard: revenue stats, top-selling cakes, recent orders
+- Admin dashboard: revenue stats, top selling cakes, recent orders
 - Admin management: orders, products, customers, payments, settings
 - Notification preferences and password management
 

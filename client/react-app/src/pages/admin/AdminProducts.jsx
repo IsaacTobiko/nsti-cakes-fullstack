@@ -56,12 +56,24 @@ function AdminProducts() {
               key={product.id}
               className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col"
             >
-              <div className="h-40 bg-maroon-light/10 flex items-center justify-center overflow-hidden">
-                <img
-                  src={`${import.meta.env.VITE_API_URL}${product.image}`}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
+              <div className="aspect-[4/3] w-full bg-maroon-light/10 overflow-hidden">
+                {product.image ? (
+                  <img
+                    src={
+                      product.image.startsWith("http")
+                        ? product.image
+                        : `${import.meta.env.VITE_API_URL}${product.image}`
+                    }
+                    alt={product.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    onError={(e) => (e.currentTarget.style.display = "none")}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
+                    No image
+                  </div>
+                )}
               </div>
 
               <div className="p-4 flex flex-col gap-1.5">

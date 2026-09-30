@@ -32,8 +32,6 @@ export function AuthProvider({ children }) {
     localStorage.setItem("isAdmin", String(res.data.is_admin === true));
     return res.data;
   }
-  setIsAdmin(res.data.is_admin === true);
-  localStorage.setItem("isAdmin", String(res.data.is_admin === true));
 
   async function signup(name, email, password) {
     const res = await axios.post(`${API_URL}/user/`, { name, email, password });
@@ -44,19 +42,18 @@ export function AuthProvider({ children }) {
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
+    setIsAdmin(false);
+    localStorage.removeItem("isAdmin");
   }
-  setIsAdmin(false);
-  localStorage.removeItem("isAdmin");
+
+  return (
+    <AuthContext.Provider
+      value={{ token, user, isAdmin, login, signup, logout, api }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
-
-return (
-  <AuthContext.Provider
-    value={{ token, user, isAdmin, login, signup, logout, api }}
-  >
-    {children}
-  </AuthContext.Provider>
-);
-
 export function useAuth() {
   return useContext(AuthContext);
 }

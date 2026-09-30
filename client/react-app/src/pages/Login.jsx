@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 function Login() {
   const [email, setEmail] = useState("");
@@ -8,6 +8,7 @@ function Login() {
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   function isEmailValid() {
     if (email.length === 0) return true;
@@ -20,7 +21,9 @@ function Login() {
     setError("");
     try {
       await login(email, password);
-      navigate("/products");
+      navigate(location.state?.from?.pathname || "/products", {
+        replace: true,
+      });
     } catch (err) {
       setError("Invalid email or password");
     }

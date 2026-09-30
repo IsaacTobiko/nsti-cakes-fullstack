@@ -59,7 +59,7 @@ function AppContent() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <AdminLayout />
             </ProtectedRoute>
           }

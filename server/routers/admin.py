@@ -8,7 +8,7 @@ router = APIRouter(prefix="/admin", tags=["Admin"])
 @router.get("/stats")
 def get_stats(
     db: Session = Depends(database.get_db),
-    current_user: models.User = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     total_orders = db.query(models.Order).count()
     total_revenue = db.query(func.sum(models.Order.amount)).scalar() or 0

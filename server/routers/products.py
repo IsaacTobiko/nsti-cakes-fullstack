@@ -31,7 +31,12 @@ def create(
     return new_product
 
 @router.put("/{id}", response_model=schemas.ShowProduct)
-def update(id: int, request: schemas.ProductCreate, db: Session = Depends(database.get_db)):
+def update(
+    id: int, 
+    request: schemas.ProductCreate, 
+    db: Session = Depends(database.get_db),
+    admin: models.User = Depends(oauth2.get_admin_user),
+):
     product = db.query(models.Product).filter(models.Product.id == id)
     if not product.first():
         raise HTTPException(

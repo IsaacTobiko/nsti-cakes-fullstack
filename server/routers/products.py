@@ -19,7 +19,11 @@ def get_one(id: int, db: Session = Depends(database.get_db)):
     return product
 
 @router.post("/", response_model=schemas.ShowProduct, status_code=status.HTTP_201_CREATED)
-def create(request: schemas.ProductCreate, db: Session = Depends(database.get_db)):
+def create(
+    request: schemas.ProductCreate, 
+    db: Session = Depends(database.get_db),
+    admin: models.User = Depends(oauth2.get_admin_user),
+):
     new_product = models.Product(**request.dict())
     db.add(new_product)
     db.commit()

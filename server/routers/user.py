@@ -22,7 +22,10 @@ def create_user(request: schemas.UserCreate, db: Session = Depends(database.get_
     return new_user
 
 @router.get("/", response_model=list[schemas.ShowUser])
-def get_all(db: Session = Depends(database.get_db)):
+def get_all(
+    db: Session = Depends(database.get_db),
+    admin: models.User = Depends(oauth2.get_admin_user),
+):
     return db.query(models.User).all()
 
 

@@ -7,7 +7,7 @@ router = APIRouter(prefix="/orders", tags=["Orders"])
 @router.get("/", response_model=list[schemas.ShowOrder])
 def get_all(
     db: Session = Depends(database.get_db),
-    current_user: schemas.ShowUser = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     return db.query(models.Order).all()
 

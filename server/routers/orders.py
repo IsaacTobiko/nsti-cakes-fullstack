@@ -42,6 +42,11 @@ def get_one(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order with id {id} no found",
         )
+    if not current_user.is_admin and order.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not allowed",
+        )
     return order
 
 @router.put("/{id}", response_model=schemas.ShowOrder)

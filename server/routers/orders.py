@@ -49,7 +49,7 @@ def update_status(
     id: int,
     status_value: str,
     db: Session = Depends(database.get_db),
-    current_user: schemas.ShowUser = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     order = db.query(models.Order).filter(models.Order.id == id)
     if not order.first():

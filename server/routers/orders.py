@@ -7,7 +7,7 @@ router = APIRouter(prefix="/orders", tags=["Orders"])
 @router.get("/", response_model=list[schemas.ShowOrder])
 def get_all(
     db: Session = Depends(database.get_db),
-    current_user: schemas.ShowUser = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     return db.query(models.Order).all()
 
@@ -42,6 +42,11 @@ def get_one(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order with id {id} no found",
         )
+    if not current_user.is_admin and order.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not allowed",
+        )
     return order
 
 @router.put("/{id}", response_model=schemas.ShowOrder)
@@ -49,7 +54,7 @@ def update_status(
     id: int,
     status_value: str,
     db: Session = Depends(database.get_db),
-    current_user: schemas.ShowUser = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     order = db.query(models.Order).filter(models.Order.id == id)
     if not order.first():

@@ -89,8 +89,18 @@ def update_notification_prefs(
     return prefs
 
 @router.get("/{id}", response_model=schemas.ShowUser)
-def get_user(id: int, db: Session = Depends(database.get_db)):
+def get_user(
+    id: int,
+    db: Session = Depends(database.get_db),
+    current_user: models.User = Depends(oauth2.get_current_user),
+):
+    if not current_user.is_admin and current_user.id != id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not allowed",
+        )
     user = db.query(models.User).filter(models.User.id == id).first()
+
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

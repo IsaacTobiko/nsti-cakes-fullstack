@@ -7,7 +7,7 @@ router = APIRouter(prefix="/payments", tags=["Payments"])
 @router.get("/", response_model=list[schemas.ShowPayment])
 def get_all(
     db: Session = Depends(database.get_db),
-    current_user: models.User = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     return db.query(models.Payment).all()
 

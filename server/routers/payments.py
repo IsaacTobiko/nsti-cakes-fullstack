@@ -7,7 +7,7 @@ router = APIRouter(prefix="/payments", tags=["Payments"])
 @router.get("/", response_model=list[schemas.ShowPayment])
 def get_all(
     db: Session = Depends(database.get_db),
-    current_user: models.User = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_admin_user),
 ):
     return db.query(models.Payment).all()
 
@@ -41,5 +41,10 @@ def get_one(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Payment with id {id} not found",
+        )
+    if not current_user.is_admin and (payment.order is None or payment.order.user_id != current_user.id):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not allowed",
         )
     return payment

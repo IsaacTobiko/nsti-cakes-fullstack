@@ -91,7 +91,6 @@ function Footer() {
               className="bg-white  text-black font-semibold px-4 py-2 rounded-md w-fit hover:bg-gray-200 transition-colors cursor-pointer"
             >
               {sending ? "Sending....." : "Submit"}
-              Submit
             </button>
           </div>
         </div>

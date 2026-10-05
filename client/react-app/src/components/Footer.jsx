@@ -24,21 +24,17 @@ function Footer() {
       alert("Please enter a valid email.");
       return;
     }
-
     if (!formData.message.trim()) {
       alert("Please enter a message.");
       return;
     }
     setSending(true);
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/contact/`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        },
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/contact/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok)

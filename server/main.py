@@ -4,6 +4,7 @@ import models
 from routers import user, authentication, products, orders, admin, payments, mpesa
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from routers.contact import router as contact_router
 
 app = FastAPI()
 
@@ -22,5 +23,6 @@ app.include_router(orders.router)
 app.include_router(admin.router)
 app.include_router(payments.router)
 app.include_router(mpesa.router)
+app.include_router(contact_router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

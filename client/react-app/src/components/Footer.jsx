@@ -8,11 +8,13 @@ function Footer() {
     message: "",
   });
 
+  const [sending, setSending] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.name.trim()) {
       alert("Please enter your name.");
       return;
@@ -27,7 +29,28 @@ function Footer() {
       alert("Please enter a message.");
       return;
     }
-    console.log("Form submitted:", formData);
+    setSending(true);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/contact/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok)
+        throw new Error(JSON.stringify(data.detail || "Request failed"));
+      alert("Message sent. We'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Contact error:", err);
+      alert("Failed to send: " + err.message);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -64,8 +87,10 @@ function Footer() {
             />
             <button
               onClick={handleSubmit}
+              disabled={sending}
               className="bg-white  text-black font-semibold px-4 py-2 rounded-md w-fit hover:bg-gray-200 transition-colors cursor-pointer"
             >
+              {sending ? "Sending....." : "Submit"}
               Submit
             </button>
           </div>

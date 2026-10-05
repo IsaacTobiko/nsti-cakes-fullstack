@@ -13,6 +13,20 @@ function Footer() {
   };
 
   const handleSubmit = () => {
+    if (!formData.name.trim()) {
+      alert("Please enter your name.");
+      return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(formData.email.trim())) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      alert("Please enter a message.");
+      return;
+    }
     console.log("Form submitted:", formData);
   };
 

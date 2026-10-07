@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SQLALCHAMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./blog.db")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./blog.db")
 
-if SQLALCHAMY_DATABASE_URL.startswith("sqlite"):
+if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
     engine = create_engine(
-        SQLALCHAMY_DATABASE_URL, connect_args={"check_same_thread": False}
+        SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
     )
 else:
-    engine = create_engine(SQLALCHAMY_DATABASE_URL)
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(
     bind=engine,

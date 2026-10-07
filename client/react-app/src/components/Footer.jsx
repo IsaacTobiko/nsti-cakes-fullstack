@@ -9,23 +9,26 @@ function Footer() {
   });
 
   const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState({ type: "", text: "" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ type: "", text: "" });
     if (!formData.name.trim()) {
-      alert("Please enter your name.");
+      setStatus({ type: "error", text: "Please enter your name." });
       return;
     }
 
     if (!/^\S+@\S+\.\S+$/.test(formData.email.trim())) {
-      alert("Please enter a valid email.");
+      setStatus({ type: "error", text: "Please enter a valid email." });
       return;
     }
     if (!formData.message.trim()) {
-      alert("Please enter a message.");
+      setStatus({ type: "error", text: "Please enter a message." });
       return;
     }
     setSending(true);
@@ -37,13 +40,25 @@ function Footer() {
       });
 
       const data = await res.json().catch(() => ({}));
-      if (!res.ok)
-        throw new Error(JSON.stringify(data.detail || "Request failed"));
-      alert("Message sent. We'll get back to you soon.");
+      if (!res.ok) {
+        const detail = data.detail;
+        const msg = Array.isArray(detail) ? detail[0].msg : detail;
+        throw new Error(msg || "Something went wrong. Please try again.");
+      }
+      setStatus({
+        type: "success",
+        text: "Message sent. We'll get back to you soon.",
+      });
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {
       console.error("Contact error:", err);
-      alert("Failed to send: " + err.message);
+      const offline = err instanceof TypeError;
+      setStatus({
+        type: "error",
+        text: offline
+          ? "Could not reach the server. Try again later."
+          : err.message,
+      });
     } finally {
       setSending(false);
     }
@@ -56,7 +71,11 @@ function Footer() {
           <h2 className="text-3xl font-bold mb-1">Contact Us</h2>
           <p className="text-gray-300 mb-6">Send us a message</p>
 
-          <div className="flex flex-col gap-4 max-w-md">
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="flex flex-col gap-4 max-w-md"
+          >
             <input
               type="text"
               name="name"
@@ -82,13 +101,23 @@ function Footer() {
               className="bg-white text-black px-4 py-3 rounded-md outline-none resize-none"
             />
             <button
-              onClick={handleSubmit}
+              type="submit"
               disabled={sending}
-              className="bg-white  text-black font-semibold px-4 py-2 rounded-md w-fit hover:bg-gray-200 transition-colors cursor-pointer"
+              className="bg-white  text-black font-semibold px-4 py-2 rounded-md w-fit hover:bg-gray-200 transition-colors disabled:opacity-60 cursor-pointer"
             >
               {sending ? "Sending....." : "Submit"}
             </button>
-          </div>
+            {status.text && (
+              <p
+                role="status"
+                className={
+                  status.type === "success" ? "text-green-400" : "text-red-400"
+                }
+              >
+                {status.text}
+              </p>
+            )}
+          </form>
         </div>
 
         <div className="flex flex-col items-start md:items-end gap-4 md:text-right">

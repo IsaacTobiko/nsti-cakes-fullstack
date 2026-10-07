@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from database import engine
+from database import engine, Base
 import models
 from routers import user, authentication, products, orders, admin, payments, mpesa
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,6 +7,8 @@ from fastapi.staticfiles import StaticFiles
 from routers.contact import router as contact_router
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,

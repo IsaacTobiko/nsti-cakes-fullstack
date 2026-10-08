@@ -165,10 +165,20 @@ function Checkout() {
             <div className="p-4 flex flex-col gap-3">
               <div className="flex flex-col gap-2 pb-3 border-b border-gray-200">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span className="text-gray-700">
-                      {item.name} x{item.quantity}
-                    </span>
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center text-sm"
+                  >
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={`${import.meta.env.VITE_API_URL}${item.image}`}
+                        alt={item.name}
+                        className="w-10 h-10 rounded object-cover"
+                      />
+                      <span className="text-gray-700">
+                        {item.name} x{item.quantity}
+                      </span>
+                    </div>
                     <span className="text-gray-800">
                       {(item.price * item.quantity).toLocaleString()}
                     </span>

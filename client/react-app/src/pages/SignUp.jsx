@@ -91,7 +91,7 @@ function SignUp() {
 
           <div className="flex flex-col gap-1">
             <label className="text-sm md:text-base font-semibold text-gray-900">
-              Create password
+              Create Password
             </label>
             <div className="flex items-center gap-3 bg-white border border-gray-300 px-3 py-3 rounded-sm">
               <i className="fas fa-lock text-gray-900"></i>
@@ -118,7 +118,7 @@ function SignUp() {
               htmlFor="confirm-password"
               className="text-sm md:text-base font-semibold text-gray-900"
             >
-              Confirm password
+              Confirm Password
             </label>
             <div className="flex items-center gap-3 bg-white border border-gray-300 px-3 py-3 rounded-sm">
               <i className="fas fa-lock text-gray-900"></i>

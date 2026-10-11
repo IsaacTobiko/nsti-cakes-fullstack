@@ -131,11 +131,6 @@ Update `MPESA_CALLBACK_URL` in `.env` with the ngrok forwarding URL, then restar
 ---
 
 ---
-
-## API Overview
-
-Full interactive documentation is available at `/docs` (Swagger UI) on the running backend.
-
 ## Author
 
 Isaac Tobiko

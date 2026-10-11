@@ -34,9 +34,6 @@ A full stack cake ordering platform built for Nairobi South Training Institute B
 - Passlib/bcrypt (password hashing)
 - Safaricom Daraja API (M-Pesa STK Push)
 
-**Deployment**
-- Frontend: Vercel
-- Backend: Render
 
 ---
 
@@ -131,33 +128,13 @@ ngrok http 8000
 
 Update `MPESA_CALLBACK_URL` in `.env` with the ngrok forwarding URL, then restart the backend. Note that free ngrok URLs change on every restart.
 
-Sandbox test phone number: `254708374149` (real phone numbers only work with production Daraja credentials).
-
 ---
-
-## Deployment
-
-- **Frontend** is deployed on Vercel, pointed at this repo's `client/react-app` directory.
-- **Backend** is deployed on Render as a Python web service, running `uvicorn main:app --host 0.0.0.0 --port $PORT`.
-- Environment variables (`SECRET_KEY`, M-Pesa credentials, etc.) are set in each platform's dashboard rather than committed to the repo.
 
 ---
 
 ## API Overview
 
 Full interactive documentation is available at `/docs` (Swagger UI) on the running backend.
-
-| Area | Endpoints |
-|---|---|
-| Auth | `POST /login` |
-| Users | `POST /user/`, `GET /user/`, `GET /user/{id}`, `PUT /user/me`, `PUT /user/me/password`, `GET/PUT /user/me/notifications` |
-| Products | `GET /products/`, `POST /products/`, `GET/PUT/DELETE /products/{id}` |
-| Orders | `GET /orders/`, `GET /orders/mine`, `POST /orders/`, `GET/PUT /orders/{id}` |
-| Payments | `GET /payments/`, `POST /payments/`, `GET /payments/{id}` |
-| M-Pesa | `POST /mpesa/pay`, `POST /mpesa/callback` |
-| Admin | `GET /admin/stats` |
-
----
 
 ## Author
 

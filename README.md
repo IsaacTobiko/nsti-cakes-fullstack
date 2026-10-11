@@ -2,8 +2,6 @@
 
 A full stack cake ordering platform built for Nairobi South Training Institute Bakery, with customer ordering, an admin dashboard, and M-Pesa payment integration.
 
-**Live demo:** https://nsti-cakes-fullstack.vercel.app
-**API:** https://nsti-cakes-backend.onrender.com/docs
 
 ---
 

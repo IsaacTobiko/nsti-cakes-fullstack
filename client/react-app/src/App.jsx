@@ -23,6 +23,7 @@ import AdminCustomers from "./pages/admin/AdminCustomers";
 import AdminPayments from "./pages/admin/AdminPayments";
 import AdminSettings from "./pages/admin/AdminSettings";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminMessages from "./pages/admin/AdminMessages";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -70,6 +71,7 @@ function AppContent() {
           <Route path="products" element={<AdminProducts />} />
           <Route path="customers" element={<AdminCustomers />} />
           <Route path="payments" element={<AdminPayments />} />
+          <Route path="messages" element={<AdminMessages />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
       </Routes>

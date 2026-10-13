@@ -15,6 +15,7 @@ import {
   Bell,
   AlertCircle,
   UserPlus,
+  Mail,
 } from "lucide-react";
 import { orders } from "../../data/orders";
 import { notifications } from "../../data/notifications";
@@ -25,6 +26,7 @@ const navItems = [
   { label: "Products", path: "/admin/products", icon: Package },
   { label: "Customers", path: "/admin/customers", icon: Users },
   { label: "Payments", path: "/admin/payments", icon: CreditCard },
+  { label: "Messages", path: "/admin/messages", icon: Mail },
   { label: "Settings", path: "/admin/settings", icon: Settings },
 ];
 

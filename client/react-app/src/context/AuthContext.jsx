@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
     localStorage.getItem("isAdmin") === "true",
   );
 
-  const api = axios.create({ baseURL: API_URL });
+  const api = axios.create({ baseURL: API_URL, withCredentials: true });
   api.interceptors.request.use((config) => {
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
@@ -24,6 +24,7 @@ export function AuthProvider({ children }) {
 
     const res = await axios.post(`${API_URL}/login`, form, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      withCredentials: true,
     });
 
     setToken(res.data.access_token);

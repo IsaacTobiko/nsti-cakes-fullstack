@@ -43,7 +43,7 @@ function Cart() {
                 className="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row gap-4"
               >
                 <img
-                  src={item.image}
+                  src={`${import.meta.env.VITE_API_URL}${item.image}`}
                   alt={item.name}
                   className="w-full sm:w-28 h-28 object-cover rounded"
                 />

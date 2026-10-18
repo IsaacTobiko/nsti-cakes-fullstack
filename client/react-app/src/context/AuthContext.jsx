@@ -38,6 +38,16 @@ export function AuthProvider({ children }) {
     const res = await axios.post(`${API_URL}/user/`, { name, email, password });
     return res.data;
   }
+  async function googleLogin(credential) {
+    const res = await axios.post(
+      `${API_URL}/auth/google`,
+      { credential },
+      { withCredentials: true },
+    );
+    setIsAdmin(res.data.is_admin === true);
+    localStorage.setItem("isAdmin", String(res.data.is_admin === true));
+    return res.data;
+  }
 
   function logout() {
     setToken(null);
@@ -49,7 +59,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ token, user, isAdmin, login, signup, logout, api }}
+      value={{ token, user, isAdmin, login, signup, googleLogin, logout, api }}
     >
       {children}
     </AuthContext.Provider>

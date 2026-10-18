@@ -56,6 +56,10 @@ function Checkout() {
       clearCart();
       navigate("/order-confirmation", { state: { orderData } });
     } catch (err) {
+      if (err.response?.status === 401) {
+        navigate("/login", { state: { from: "/checkout" } });
+        return;
+      }
       alert("Failed to place. Please try again.");
     }
   }

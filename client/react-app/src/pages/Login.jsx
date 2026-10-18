@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import GoogleButton from "../components/GoogleButton";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -140,13 +141,7 @@ function Login() {
               </p>
               <hr className="flex-1 border-gray-300" />
             </div>
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-900 text-sm md:text-base font-semibold py-3 rounded-sm transition-colors duration-200 cursor-pointer"
-            >
-              <i className="fab fa-google"></i>
-              Continue with Google
-            </button>
+            <GoogleButton />
           </div>
           <div>
             <p className="text-sm md:text-base text-gray-500 text-center mt-2">

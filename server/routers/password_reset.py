@@ -51,7 +51,7 @@ def send_reset_email(to_email: str, link: str):
     except Exception as e:
         print(f"[EMAIL ERROR] {e}")
 
-@router.post("/forgot=password")
+@router.post("/forgot-password")
 def forgot_password(
     http_request: Request,
     request: schemas.ForgotPasswordRequest,
@@ -92,7 +92,7 @@ def reset_password(
     if payload.get("purpose") != "reset":
         raise bad
 
-    user = db.query(models.User).filter(models.User.email == payload.get(email)).first()
+    user = db.query(models.User).filter(models.User.email == payload.get("email")).first()
     if not user or user.password[-10] != payload.get("fp"):
         raise bad
 

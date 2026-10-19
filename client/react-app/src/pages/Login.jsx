@@ -22,7 +22,7 @@ function Login() {
     setError("");
     try {
       await login(email, password);
-      navigate(location.state?.from?.pathname || "/products", {
+      navigate(location.state?.from || "/products", {
         replace: true,
       });
     } catch (err) {

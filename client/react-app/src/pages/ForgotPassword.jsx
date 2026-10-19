@@ -1,21 +1,35 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
-  const handleSend = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSend = async () => {
     if (!email || !email.includes("@")) {
       setStatus("error");
       return;
     }
-    setStatus("success");
-    setEmail("");
+    setLoading(true);
+    setStatus(null);
+    try {
+      await axios.post(`${API_URL}/forgot-password`, { email });
+      setStatus("success");
+      setEmail("");
+    } catch (err) {
+      setStatus("failed");
+    } finally {
+      setLoading(false);
+    }
   };
   const handleBack = () => {
     navigate("/login");
   };
-
   return (
     <main className="min-h-screen bg-maroon-dark flex flex-col items-center justify-center px-4 py-10">
       <h1 className="font-serif font-normal text-center text-white text-2xl sm:text-3xl md:text-4xl mb-1">
@@ -44,19 +58,24 @@ function ForgotPassword() {
         )}
         {status === "success" && (
           <p className="text-green-700 bg-green-100 text-xs sm:text-sm rounded-lg px-3 py-2">
-            Reset link sent! Check your inbox
+            If that email exists, a reset link has been sent. Check your inbox
           </p>
         )}
-
+        {status === "failed" && (
+          <p className="text-red-700 bg-red-100 text-xs sm:text-sm rounded-lg px-3 py-2">
+            Something went wrong. Please try again
+          </p>
+        )}
         <button
           onClick={handleSend}
+          disabled={loading}
           className="bg-[#3D0D1E] text-[#F5F0EB]
             rounded-lg h-11 w-full
             text-sm sm:text-base font-medium
             hover:bg-[#5a1530] active:scale-95
-            transition-all duration-150"
+            transition-all duration-150 disabled:opacity-60"
         >
-          Send
+          {loading ? "Sending..." : "Send"}
         </button>
         <button
           onClick={handleBack}

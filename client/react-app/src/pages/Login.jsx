@@ -6,6 +6,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Login() {
     e.preventDefault();
     setError("");
     try {
-      await login(email, password);
+      await login(email, password, remember);
       navigate(location.state?.from || "/products", {
         replace: true,
       });
@@ -115,6 +116,8 @@ function Login() {
               <input
                 type="checkbox"
                 id="remember"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
                 className="accent-maroon cursor-pointer"
               />
               <label htmlFor="remember">Remember me</label>

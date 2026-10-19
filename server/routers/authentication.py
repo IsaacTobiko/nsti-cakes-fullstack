@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from hashing import Hash
 from JWT_token import create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
 from rate_limit import RateLimiter
+from datetime import timedelta 
 import os
 
 router = APIRouter(tags=["Authentication"])
@@ -14,7 +15,7 @@ ip_limiter = RateLimiter(max_hits=10, window_seconds=60)
 email_limiter = RateLimiter(max_hits=5, window_seconds=900)
 
 @router.post("/login")
-def login(http_request: Request, response: Response, request: OAuth2PasswordRequestForm=Depends(), db: Session = Depends(database.get_db)):
+def login(http_request: Request, response: Response, remember: bool = False, request: OAuth2PasswordRequestForm=Depends(), db: Session = Depends(database.get_db)):
     ip = http_request.client.host
     email = request.username.strip().lower()
 
@@ -30,15 +31,16 @@ def login(http_request: Request, response: Response, request: OAuth2PasswordRequ
             detail="Invalid email or password",
         )
         
-    email_limiter.reset(email)
-    access_token = create_access_token(data={"sub": user.email})
+    lifetime = timedelta(days=30) if remember else timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(data={"sub": user.email}, expires_delta=lifetime)
     response.set_cookie(
-    key="access_token",
-    value=access_token,
-    httponly=True,
-    secure=os.getenv("COOKIE_SECURE", "false")=="true",
-    samesite="lax",
-    max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-    path="/",
-)
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=os.getenv("COOKIE_SECURE", "false")=="true",
+        samesite="lax",
+        max_age=int(lifetime.total_seconds()),
+        path="/",
+    )
+ 
     return {"is_admin": user.is_admin}

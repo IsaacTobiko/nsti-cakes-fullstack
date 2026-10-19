@@ -17,15 +17,19 @@ export function AuthProvider({ children }) {
     return config;
   });
 
-  async function login(email, password) {
+  async function login(email, password, remember = false) {
     const form = new URLSearchParams();
     form.append("username", email);
     form.append("password", password);
 
-    const res = await axios.post(`${API_URL}/login`, form, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      withCredentials: true,
-    });
+    const res = await axios.post(
+      `${API_URL}/login?remember=${remember}`,
+      form,
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        withCredentials: true,
+      },
+    );
 
     setToken(res.data.access_token);
     localStorage.setItem("token", res.data.access_token);

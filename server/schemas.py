@@ -110,3 +110,10 @@ class ForgotPasswordRequest(BaseModel):
 class ResetPasswordRequest(BaseModel):
     token: str
     new_password: str = Field(min_length=6)
+
+class ReceiptRequest(BaseModel):
+    order_codes: List[str] = Field(min_length=1, max_length=50)
+    delivery_method: str
+    area: str = ""
+    town: str = ""
+    

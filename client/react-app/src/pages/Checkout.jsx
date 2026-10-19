@@ -34,13 +34,27 @@ function Checkout() {
       return;
     }
     try {
+      const orderCodes = [];
       for (const item of cartItems) {
+        const code = `ORD-${Date.now()}-${item.id}`;
         await api.post("/orders/", {
-          order_code: `ORD-${Date.now()}-${item.id}`,
+          order_code: code,
           cake: item.name,
           amount: item.price * item.quantity,
           status: "Pending",
         });
+        orderCodes.push(code);
+      }
+
+      try {
+        await api.post("/orders/receipt", {
+          order_codes: orderCodes,
+          delivery_method: deliveryMethod,
+          area,
+          town,
+        });
+      } catch (mailErr) {
+        console.error("Receipt email failed", mailErr);
       }
 
       const orderData = {
@@ -56,6 +70,12 @@ function Checkout() {
       clearCart();
       navigate("/order-confirmation", { state: { orderData } });
     } catch (err) {
+      console.error(
+        "Order failed",
+        err.response?.status,
+        err.response?.data,
+        err,
+      );
       if (err.response?.status === 401) {
         navigate("/login", { state: { from: "/checkout" } });
         return;

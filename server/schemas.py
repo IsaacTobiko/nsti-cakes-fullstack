@@ -1,6 +1,6 @@
 from typing import Optional, List
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class UserCreate(BaseModel):
     name: str
@@ -103,3 +103,10 @@ class NotificationPrefsSchema(BaseModel):
 
 class GoogleLogin(BaseModel):  
     credential: str  
+
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str = Field(min_length=6)

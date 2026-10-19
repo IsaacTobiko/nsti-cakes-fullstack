@@ -5,6 +5,7 @@ from routers import user, authentication, products, orders, admin, payments, mpe
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from routers.contact import router as contact_router
+from routers import password_reset 
 
 app = FastAPI()
 
@@ -27,5 +28,6 @@ app.include_router(payments.router)
 app.include_router(mpesa.router)
 app.include_router(contact_router)
 app.include_router(google_auth.router)
+app.include_router(password_reset.router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

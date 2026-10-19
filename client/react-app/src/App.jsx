@@ -25,6 +25,7 @@ import AdminPayments from "./pages/admin/AdminPayments";
 import AdminSettings from "./pages/admin/AdminSettings";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminMessages from "./pages/admin/AdminMessages";
+import WhatsAppButton from "./components/WhatsAppButton";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -78,7 +79,10 @@ function AppContent() {
         </Route>
       </Routes>
       {["/products", "/cart", "/checkout"].includes(location.pathname) && (
-        <Footer />
+        <>
+          <Footer />
+          <WhatsAppButton />{" "}
+        </>
       )}
     </>
   );

@@ -48,11 +48,19 @@ class ShowProduct(BaseModel):
     class Config:
         from_attributes = True
 
+class ShowCustomer(BaseModel):
+    name: str
+    email: str
+
+    class Config:
+        from_attributes = True
+
 class OrderCreate(BaseModel):
     order_code: str
     cake: str
     amount: float
     status: str = "Pending"
+    phone: Optional[str] = None
 
 class ShowOrder(BaseModel):
     id: int
@@ -61,6 +69,8 @@ class ShowOrder(BaseModel):
     amount: float
     status: str
     created_at: datetime
+    phone: Optional[str] = None
+    customer: Optional[ShowCustomer] = None
 
     class Config:
         from_attributes = True

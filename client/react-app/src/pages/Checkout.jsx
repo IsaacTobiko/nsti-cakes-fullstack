@@ -49,6 +49,7 @@ function Checkout() {
             cake: item.name,
             amount: item.price * item.quantity,
             status: "Pending",
+            phone: mpesaNumber.trim(),
           });
           codes.push(code);
         }

@@ -6,13 +6,6 @@ from mail import send_email
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
-@router.get("/", response_model=list[schemas.ShowOrder])
-def get_all(
-    db: Session = Depends(database.get_db),
-    current_user: models.User = Depends(oauth2.get_admin_user),
-):
-    return db.query(models.Order).all()
-
 @router.get("/mine", response_model=list[schemas.ShowOrder])
 def get_my_orders(
     db: Session = Depends(database.get_db),
@@ -137,3 +130,10 @@ def update_status(
     order.update({"status": status_value})
     db.commit()
     return order.first()
+
+@router.get("/", response_model=list[schemas.ShowOrder])
+def get_all(
+    db: Session = Depends(database.get_db),
+    current_user: models.User = Depends(oauth2.get_admin_user),
+):
+    return db.query(models.Order).order_by(models.Order.id.desc()).all()

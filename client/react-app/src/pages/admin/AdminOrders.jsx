@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 const statusStyles = {
   Delivered: "bg-gold-light/30 text-gold-dark",
   Pending: "bg-maroon-light/20 text-maroon",
+  Paid: "bg-green-100 text-green-700",
   Processing: "bg-blue-100 text-blue-600",
   Cancelled: "bg-red-100 text-red-600",
 };
@@ -27,6 +28,7 @@ function AdminOrders() {
     Processing: orders.filter((o) => o.status === "Processing").length,
     Delivered: orders.filter((o) => o.status === "Delivered").length,
     Cancelled: orders.filter((o) => o.status === "Cancelled").length,
+    Paid: orders.filter((o) => o.status === "Paid").length,
   };
   const filtered = orders
     .filter((o) => activeTab === "All" || o.status === activeTab)
@@ -114,7 +116,15 @@ function AdminOrders() {
                       {order.order_code}
                     </td>
                     <td className="py-3 px-3 text-gray-700">
-                      Customer #{order.user_id}
+                      <p className="font-medium">
+                        {order.customer?.name || `Customer #${order.user_id}`}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {order.customer?.email}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {order.phone || "—"}
+                      </p>
                     </td>
                     <td className="py-3 px-3 text-gray-700">{order.cake}</td>
                     <td className="py-3 px-3 text-gold font-medium">

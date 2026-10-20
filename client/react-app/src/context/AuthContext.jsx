@@ -10,12 +10,22 @@ export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(
     localStorage.getItem("isAdmin") === "true",
   );
+  const [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem("loggedIn") === "true",
+  );
 
   const api = axios.create({ baseURL: API_URL, withCredentials: true });
   api.interceptors.request.use((config) => {
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   });
+
+  function markLoggedIn(data) {
+    setIsAdmin(data.is_admin === true);
+    localStorage.setItem("isAdmin", String(data.is_admin === true));
+    setLoggedIn(true);
+    localStorage.setItem("loggedIn", "true");
+  }
 
   async function login(email, password, remember = false) {
     const form = new URLSearchParams();
@@ -31,14 +41,7 @@ export function AuthProvider({ children }) {
       },
     );
 
-    const [loggedIIn, setLoggedIn] = useState(
-      localStorage.getItem("loggedIn") === "true",
-    );
-
-    setToken(res.data.access_token);
-    localStorage.setItem("token", res.data.access_token);
-    setIsAdmin(res.data.is_admin === true);
-    localStorage.setItem("isAdmin", String(res.data.is_admin === true));
+    markLoggedIn(res.data);
     return res.data;
   }
 
@@ -46,35 +49,51 @@ export function AuthProvider({ children }) {
     const res = await axios.post(`${API_URL}/user/`, { name, email, password });
     return res.data;
   }
+
   async function googleLogin(credential) {
     const res = await axios.post(
       `${API_URL}/auth/google`,
       { credential },
       { withCredentials: true },
     );
-    setToken(res.data.access_token);
-    localStorage.setItem("token", res.data.access_token);
-    setIsAdmin(res.data.is_admin === true);
-    localStorage.setItem("isAdmin", String(res.data.is_admin === true));
+    markLoggedIn(res.data);
     return res.data;
   }
 
-  function logout() {
+  async function logout() {
+    try {
+      await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
+    } catch (e) {
+      console.error("Logout request failed", e);
+    }
     setToken(null);
     setUser(null);
-    localStorage.removeItem("token");
     setIsAdmin(false);
+    setLoggedIn(false);
+    localStorage.removeItem("token");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("loggedIn");
   }
 
   return (
     <AuthContext.Provider
-      value={{ token, user, isAdmin, login, signup, googleLogin, logout, api }}
+      value={{
+        token,
+        user,
+        isAdmin,
+        loggedIn,
+        login,
+        signup,
+        googleLogin,
+        logout,
+        api,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 }
+
 export function useAuth() {
   return useContext(AuthContext);
 }

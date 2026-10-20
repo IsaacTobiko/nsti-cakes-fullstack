@@ -19,11 +19,13 @@ const AdminCustomers = () => {
     api.get("/user/").then((res) => setCustomers(res.data));
   }, []);
 
-  const filteredCustomers = customers.filter(
-    (customer) =>
-      customer.name.toLowerCase().includes(search.toLowerCase()) ||
-      customer.email.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredCustomers = [...customers]
+    .sort((a, b) => b.id - a.id)
+    .filter(
+      (customer) =>
+        customer.name.toLowerCase().includes(search.toLowerCase()) ||
+        customer.email.toLowerCase().includes(search.toLowerCase()),
+    );
 
   return (
     <div className="p-4 sm:p-6">

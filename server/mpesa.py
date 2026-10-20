@@ -47,3 +47,4 @@ def stk_push(phone_number, amount, order_code):
 
     response = requests.post(STK_PUSH_URL, json=payload, headers=headers)
     return response.json()
+

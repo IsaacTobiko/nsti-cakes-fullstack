@@ -42,5 +42,16 @@ def login(http_request: Request, response: Response, remember: bool = False, req
         max_age=int(lifetime.total_seconds()),
         path="/",
     )
- 
     return {"is_admin": user.is_admin}
+ 
+@router.post("/logout")
+def logout(response: Response):
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+        httponly=True,
+        secure=os.getenv("COOKIE_SECURE", "false") == "true",
+        samesite="lax",
+    )
+    return {"message": "Logged out"}
+    

@@ -31,6 +31,10 @@ export function AuthProvider({ children }) {
       },
     );
 
+    const [loggedIIn, setLoggedIn] = useState(
+      localStorage.getItem("loggedIn") === "true",
+    );
+
     setToken(res.data.access_token);
     localStorage.setItem("token", res.data.access_token);
     setIsAdmin(res.data.is_admin === true);
@@ -48,6 +52,8 @@ export function AuthProvider({ children }) {
       { credential },
       { withCredentials: true },
     );
+    setToken(res.data.access_token);
+    localStorage.setItem("token", res.data.access_token);
     setIsAdmin(res.data.is_admin === true);
     localStorage.setItem("isAdmin", String(res.data.is_admin === true));
     return res.data;

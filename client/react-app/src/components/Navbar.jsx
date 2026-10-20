@@ -2,10 +2,19 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartCount } = useCart();
+  const navigate = useNavigate();
+  const { token, logout } = useAuth();
+
+  function handleLogout() {
+    logout();
+    navigate("/login");
+  }
   return (
     <nav className="bg-maroon-dark text-white px-4 py-4 flex flex-col gap-2">
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
@@ -22,13 +31,24 @@ function Navbar() {
           />
         </a>
         <div className="hidden md:flex items-center gap-6">
-          <Link
-            to="/login"
-            className="flex items-center gap-2 hover:text-gold transition-colors"
-          >
-            <i className="fa-solid fa-user text-lg"></i>
-            Login/Sign Up
-          </Link>
+          {token ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"
+            >
+              <i className="fa-solid fa-right-from-bracket text-lg"></i>
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center gap-2 hover:text-gold transition-colors"
+            >
+              <i className="fa-solid fa-user text-lg"></i>
+              Login/Sign Up
+            </Link>
+          )}
 
           <Link
             to="/cart"
@@ -59,14 +79,28 @@ function Navbar() {
       </div>
       {menuOpen && (
         <div className="md:hidden max-w-6xl mx-auto w-full flex flex-col gap-4 pt-4 border-t border-maroon-light">
-          <Link
-            to="/login"
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-2 hover:text-gold transition-colors"
-          >
-            <i className="fa-solid fa-user"></i>
-            Login/Sign Up
-          </Link>
+          {token ? (
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                handleLogout();
+              }}
+              className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"
+            >
+              <i className="fa-solid fa-right-from-bracket"></i>
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 hover:text-gold transition-colors"
+            >
+              <i className="fa-solid fa-user"></i>
+              Login/Sign Up
+            </Link>
+          )}
 
           <Link
             to="/cart"

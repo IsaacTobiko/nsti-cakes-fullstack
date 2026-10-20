@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -13,10 +13,15 @@ function Checkout() {
   const [town, setTown] = useState("");
   const [mpesaNumber, setMpesaNumber] = useState("");
 
+  const [paying, setPaying] = useState(false);
+  const [payMessage, setPayMessage] = useState("");
+  const orderCodesRef = useRef(null);
+
   const deliveryFee = deliveryMethod === "home" ? 300 : 0;
   const grandTotal = cartTotal + deliveryFee;
 
   async function handleConfirmOrder() {
+    if (paying) return;
     if (!area.trim()) {
       alert("Please enter your Area/Estate.");
       return;
@@ -33,42 +38,72 @@ function Checkout() {
       alert("Enter a valid M-Pesa number, e.g. 0712345678.");
       return;
     }
+    setPaying(true);
     try {
-      const orderCodes = [];
-      for (const item of cartItems) {
-        const code = `ORD-${Date.now()}-${item.id}`;
-        await api.post("/orders/", {
-          order_code: code,
-          cake: item.name,
-          amount: item.price * item.quantity,
-          status: "Pending",
-        });
-        orderCodes.push(code);
+      if (!orderCodesRef.current) {
+        const codes = [];
+        for (const item of cartItems) {
+          const code = `ORD-${Date.now()}-${item.id}`;
+          await api.post("/orders/", {
+            order_code: code,
+            cake: item.name,
+            amount: item.price * item.quantity,
+            status: "Pending",
+          });
+          codes.push(code);
+        }
+        orderCodesRef.current = codes;
       }
 
-      try {
-        await api.post("/orders/receipt", {
-          order_codes: orderCodes,
-          delivery_method: deliveryMethod,
+      const pay = await api.post("/mpesa/checkout", {
+        order_codes: orderCodesRef.current,
+        delivery_method: deliveryMethod,
+        phone_number: mpesaNumber.trim(),
+      });
+      const checkoutId = pay.data.checkout_request_id;
+      setPayMessage("Check your phone and enter your M-Pesa PIN...");
+
+      let result = { status: "Pending", message: "" };
+      for (let i = 0; i < 20; i++) {
+        await new Promise((r) => setTimeout(r, 3000));
+        const res = await api.get(`/mpesa/status/${checkoutId}`);
+        result = res.data;
+        if (result.status !== "Pending") break;
+      }
+      if (result.status === "Completed") {
+        try {
+          await api.post("/orders/receipt", {
+            order_codes: orderCodesRef.current,
+            delivery_method: deliveryMethod,
+            area,
+            town,
+          });
+        } catch (mailErr) {
+          console.log("Receipt email failed", mailErr);
+        }
+        const orderData = {
+          cartItems,
+          deliveryMethod,
           area,
           town,
-        });
-      } catch (mailErr) {
-        console.error("Receipt email failed", mailErr);
+          mpesaNumber,
+          subtotal: cartTotal,
+          deliveryFee,
+          grandTotal,
+        };
+        clearCart();
+        orderCodesRef.current = null;
+        navigate("/order-confirmation", { state: { orderData } });
+        return;
       }
 
-      const orderData = {
-        cartItems,
-        deliveryMethod,
-        area,
-        town,
-        mpesaNumber,
-        subtotal: cartTotal,
-        deliveryFee,
-        grandTotal,
-      };
-      clearCart();
-      navigate("/order-confirmation", { state: { orderData } });
+      if (result.status === "Failed") {
+        alert(`Payment failed: ${result.message || "please try again"}`);
+      } else {
+        alert(
+          "We have not received your payment yet. If you paid, check My Orders shortly. Otherwise click Confirm Order to retry.",
+        );
+      }
     } catch (err) {
       console.error(
         "Order failed",
@@ -80,7 +115,15 @@ function Checkout() {
         navigate("/login", { state: { from: "/checkout" } });
         return;
       }
-      alert("Failed to place. Please try again.");
+      const detail = err.response?.data?.detail;
+      alert(
+        typeof detail === "string"
+          ? detail
+          : "Failed to place. Please try again.",
+      );
+    } finally {
+      setPaying(false);
+      setPayMessage("");
     }
   }
 
@@ -227,12 +270,18 @@ function Checkout() {
                 <span>KSH {grandTotal.toLocaleString()}</span>
               </div>
 
+              {payMessage && ( // waiting message while the phone popup is open
+                <p className="text-sm text-maroon-dark text-center">
+                  {payMessage}
+                </p>
+              )}
               <button
                 type="button"
                 onClick={handleConfirmOrder}
-                className="bg-maroon-dark hover:bg-maroon text-white font-semibold py-3 rounded-full mt-2 cursor-pointer"
+                disabled={paying} // block double clicks while paying
+                className="bg-maroon-dark hover:bg-maroon text-white font-semibold py-3 rounded-full mt-2 cursor-pointer disabled:opacity-60"
               >
-                Confirm Order
+                {paying ? "Waiting for payment..." : "Confirm Order"}
               </button>
             </div>
           </div>

@@ -116,4 +116,8 @@ class ReceiptRequest(BaseModel):
     delivery_method: str
     area: str = ""
     town: str = ""
-    
+
+class MpesaCheckout(BaseModel):
+    order_codes: List[str] = Field(min_length=1, max_length=50)
+    delivery_method: str
+    phone_number: str

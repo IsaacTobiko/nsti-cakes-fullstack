@@ -9,7 +9,7 @@ const statusStyles = {
   Cancelled: "bg-red-100 text-red-600",
 };
 
-const tabs = ["All", "Pending", "Processing", "Delivered", "Cancelled"];
+const tabs = ["All", "Pending", "Paid", "Processing", "Delivered", "Cancelled"];
 
 function AdminOrders() {
   const [activeTab, setActiveTab] = useState("All");

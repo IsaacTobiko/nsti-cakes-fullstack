@@ -77,3 +77,12 @@ class MpesaTransaction(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     order = relationship("Order")
+
+class MpesaTransactionOrder(Base):
+    __tablename__ = "mpesa_transaction_orders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    mpesa_transaction_id = Column(Integer, ForeignKey("mpesa_transactions.id"))
+    order_id = Column(Integer, ForeignKey("orders.id"))
+
+    order = relationship("Order")

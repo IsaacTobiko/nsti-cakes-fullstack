@@ -42,21 +42,21 @@ A full stack cake ordering platform built for Nairobi South Training Institute B
 ```
 nsti-cakes-fullstack/
 ├── client/
-│   └── react-app/          # React frontend
+│   └── react-app/          
 │       └── src/
-│           ├── pages/       # Customer + admin pages
-│           ├── components/  # Shared UI components
-│           ├── context/     # Auth and cart state
-│           └── data/        # Static reference data
-└── server/                  # FastAPI backend
-    ├── main.py               # App entrypoint, router registration
-    ├── models.py             # SQLAlchemy models
-    ├── schemas.py             # Pydantic schemas
-    ├── database.py           # DB connection/session setup
-    ├── oauth2.py              # Current-user auth dependency
-    ├── JWT_token.py           # Token creation/verification
-    ├── mpesa.py                # Daraja API integration
-    ├── alembic/               # Database migrations
+│           ├── pages/       
+│           ├── components/  
+│           ├── context/     
+│           └── data/        
+└── server/                  
+    ├── main.py               
+    ├── models.py             
+    ├── schemas.py             
+    ├── database.py          
+    ├── oauth2.py              
+    ├── JWT_token.py           
+    ├── mpesa.py                
+    ├── alembic/               
     └── routers/
         ├── authentication.py
         ├── user.py
@@ -81,7 +81,7 @@ nsti-cakes-fullstack/
 ```bash
 cd server
 python -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
+source venv/bin/activate       
 pip install -r requirements.txt
 ```
 
